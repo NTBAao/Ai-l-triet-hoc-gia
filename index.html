@@ -1,15 +1,451 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=game/frontend/index.html">
-    <title>Ai Là Triết Học Gia</title>
-    <script>
-        window.location.href = "game/frontend/index.html";
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai Là Triết Học Gia | Gameshow Triết học Mác - Lênin</title>
+    <meta name="description" content="Trò chơi truyền hình trí tuệ 'Ai Là Triết Học Gia' dựa trên Giáo trình Triết học Mác - Lênin (Trang 247-274)">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Game Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
 </head>
-<body style="background:#020617; color:#fff; font-family:sans-serif; text-align:center; padding-top:20vh;">
-    <h2>Đang chuyển hướng tới Gameshow "Ai Là Triết Học Gia"...</h2>
-    <p><a href="game/frontend/index.html" style="color:#fed049;">Nhấp vào đây nếu trang không tự chuyển hướng</a></p>
+<body class="game-body">
+    <!-- Studio Background Lights & Effects -->
+    <div class="studio-bg">
+        <div class="spotlight spotlight-left"></div>
+        <div class="spotlight spotlight-right"></div>
+        <div class="spotlight spotlight-center"></div>
+        <div class="studio-particles" id="particles"></div>
+        <div class="studio-grid-floor"></div>
+    </div>
+
+    <!-- Top Navigation / Game Header -->
+    <header class="game-header">
+        <div class="header-left">
+            <div class="game-logo-badge" id="logoBadge">
+                <i class="fa-solid fa-scale-balanced gold-icon"></i>
+                <span class="logo-text">AI LÀ TRIẾT HỌC GIA</span>
+            </div>
+            <span class="topic-tag"><i class="fa-solid fa-book-open"></i> MLN111 • Tr. 247-274</span>
+        </div>
+
+        <div class="header-right">
+            <button id="btnSoundToggle" class="btn-icon" title="Bật/Tắt Âm thanh">
+                <i class="fa-solid fa-volume-high" id="soundIcon"></i>
+            </button>
+            <button id="btnStudyMode" class="btn-secondary-nav" title="Tra cứu 150 câu hỏi">
+                <i class="fa-solid fa-database"></i> <span>Kho 150 câu</span>
+            </button>
+            <button id="btnLeaderboard" class="btn-secondary-nav" title="Bảng vàng Triết gia">
+                <i class="fa-solid fa-trophy"></i> <span>Bảng Vàng</span>
+            </button>
+            <button id="btnToggleLadder" class="btn-secondary-nav mobile-only" title="Mở bậc thang điểm">
+                <i class="fa-solid fa-list-ol"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- ==================== SCREEN 1: WELCOME SCREEN ==================== -->
+        <section id="screenWelcome" class="game-screen active">
+            <div class="welcome-card glass-panel">
+                <div class="intro-emblem">
+                    <div class="emblem-outer-ring">
+                        <div class="emblem-inner-ring">
+                            <i class="fa-solid fa-landmark"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="game-title">AI LÀ TRIẾT HỌC GIA</h1>
+                <p class="game-subtitle">Chương 3: Triết học về con người • Bản chất, Tha hóa & Giải phóng con người</p>
+                <div class="source-citation">
+                    <i class="fa-solid fa-certificate gold-text"></i> Dựa trên Giáo trình chuẩn Bộ Giáo dục & Đào tạo (MLN111, tr. 247 - 274)
+                </div>
+
+                <div class="welcome-features-grid">
+                    <div class="feature-item">
+                        <i class="fa-solid fa-shuffle feature-icon"></i>
+                        <h4>Ngẫu nhiên 30 câu</h4>
+                        <p>Tuyển chọn từ ngân hàng 150 câu hỏi chất lượng cao</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-hand-holding-hand feature-icon"></i>
+                        <h4>4 Quyền trợ giúp</h4>
+                        <p>50:50, Hỏi hội đồng, Gọi điện cho C.Mác/Lênin, Đổi câu</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-medal feature-icon"></i>
+                        <h4>30 Bậc danh vọng</h4>
+                        <p>Mốc an toàn tại câu 5, 10, 15, 20, 25 & Đỉnh cao câu 30</p>
+                    </div>
+                </div>
+
+                <div class="player-input-box">
+                    <label for="playerNameInput"><i class="fa-solid fa-user-graduate"></i> Nhập tên của bạn để ghi danh:</label>
+                    <div class="input-action-row">
+                        <input type="text" id="playerNameInput" placeholder="Ví dụ: Nguyễn Văn A - K65" maxlength="30" value="Nhà Triết học Trẻ">
+                        <button id="btnStartGame" class="btn-play-primary">
+                            <span>VÀO TRẬN ĐẤU</span> <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SCREEN 2: PLAYING GAME SCREEN ==================== -->
+        <section id="screenGame" class="game-screen">
+            <div class="gameplay-layout">
+                
+                <!-- Left Column: Lifelines, Timer, Question, Answers -->
+                <div class="game-arena">
+                    
+                    <!-- Lifelines & Status Bar -->
+                    <div class="arena-topbar glass-panel">
+                        <!-- 4 Lifeline Buttons -->
+                        <div class="lifelines-container">
+                            <button id="llFifty" class="btn-lifeline" title="Trợ giúp 50:50 (Loại 2 phương án sai)">
+                                <span class="ll-text">50:50</span>
+                            </button>
+                            <button id="llAudience" class="btn-lifeline" title="Hỏi ý kiến Hội đồng Triết gia">
+                                <i class="fa-solid fa-users"></i>
+                            </button>
+                            <button id="llPhone" class="btn-lifeline" title="Gọi điện cho Nhà thông thái (C.Mác, Lênin, Bác Hồ)">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </button>
+                            <button id="llSwitch" class="btn-lifeline" title="Đổi câu hỏi khác cùng cấp độ">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+
+                        <!-- Circular Timer -->
+                        <div class="timer-wrapper">
+                            <svg class="timer-svg" viewBox="0 0 100 100">
+                                <circle class="timer-circle-bg" cx="50" cy="50" r="42"></circle>
+                                <circle id="timerCircleProgress" class="timer-circle-fg" cx="50" cy="50" r="42"></circle>
+                            </svg>
+                            <div class="timer-text" id="timerCount">45</div>
+                        </div>
+
+                        <!-- Walk Away / Surrender button -->
+                        <div class="stop-game-wrapper">
+                            <button id="btnWalkAway" class="btn-walkaway" title="Dừng cuộc chơi để bảo toàn điểm số">
+                                <i class="fa-solid fa-door-open"></i> <span>Dừng cuộc chơi</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question Info Bar -->
+                    <div class="question-meta-bar">
+                        <span class="meta-badge q-num-badge" id="currentQNumBadge">Câu hỏi 1 / 30</span>
+                        <span class="meta-badge q-category-badge" id="currentQCategory">Bản chất con người</span>
+                        <span class="meta-badge q-value-badge" id="currentQValue">500.000 VNĐ</span>
+                    </div>
+
+                    <!-- Main Question Box (Millionaire Hexagonal Diamond Shape) -->
+                    <div class="question-frame">
+                        <div class="diamond-line left-line"></div>
+                        <div class="question-box" id="questionTextBox">
+                            <p id="questionText">Đang tải câu hỏi triết học...</p>
+                        </div>
+                        <div class="diamond-line right-line"></div>
+                    </div>
+
+                    <!-- 4 Answer Options (A, B, C, D) -->
+                    <div class="answers-grid" id="answersGrid">
+                        <!-- Option A -->
+                        <button class="answer-box" data-index="0" id="optBtn0">
+                            <div class="answer-bracket left-bracket"></div>
+                            <div class="answer-content">
+                                <span class="opt-prefix">A:</span>
+                                <span class="opt-text" id="optText0">Phương án A</span>
+                            </div>
+                            <div class="answer-bracket right-bracket"></div>
+                        </button>
+
+                        <!-- Option B -->
+                        <button class="answer-box" data-index="1" id="optBtn1">
+                            <div class="answer-bracket left-bracket"></div>
+                            <div class="answer-content">
+                                <span class="opt-prefix">B:</span>
+                                <span class="opt-text" id="optText1">Phương án B</span>
+                            </div>
+                            <div class="answer-bracket right-bracket"></div>
+                        </button>
+
+                        <!-- Option C -->
+                        <button class="answer-box" data-index="2" id="optBtn2">
+                            <div class="answer-bracket left-bracket"></div>
+                            <div class="answer-content">
+                                <span class="opt-prefix">C:</span>
+                                <span class="opt-text" id="optText2">Phương án C</span>
+                            </div>
+                            <div class="answer-bracket right-bracket"></div>
+                        </button>
+
+                        <!-- Option D -->
+                        <button class="answer-box" data-index="3" id="optBtn3">
+                            <div class="answer-bracket left-bracket"></div>
+                            <div class="answer-content">
+                                <span class="opt-prefix">D:</span>
+                                <span class="opt-text" id="optText3">Phương án D</span>
+                            </div>
+                            <div class="answer-bracket right-bracket"></div>
+                        </button>
+                    </div>
+
+                    <!-- Action Bar after answering (Explanation & Next) -->
+                    <div class="post-answer-panel" id="postAnswerPanel" style="display: none;">
+                        <div class="explanation-box" id="explanationBox">
+                            <h4><i class="fa-solid fa-graduation-cap"></i> Luận giải Triết học (Giáo trình MLN111):</h4>
+                            <p id="explanationText">Giải thích chi tiết...</p>
+                        </div>
+                        <button id="btnNextQuestion" class="btn-next-step">
+                            <span>TIẾP TỤC BẬC THANG TIẾP THEO</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: 30-Level Money / Rank Ladder -->
+                <aside class="ladder-sidebar glass-panel" id="ladderSidebar">
+                    <div class="ladder-header">
+                        <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG TRIẾT HỌC</h3>
+                        <p class="player-tag"><i class="fa-solid fa-user"></i> <span id="sidebarPlayerName">Người chơi</span></p>
+                    </div>
+                    
+                    <div class="ladder-list" id="ladderList">
+                        <!-- Populated by JavaScript from level 30 down to level 1 -->
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- ==================== SCREEN 3: GAME OVER / VICTORY SCREEN ==================== -->
+        <section id="screenResult" class="game-screen">
+            <div class="result-card glass-panel">
+                <div class="result-emblem" id="resultEmblem">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+
+                <h1 id="resultTitle" class="result-title">XUẤT SẮC! BẠN ĐÃ TRỞ THÀNH ĐẠI TRIẾT GIA!</h1>
+                <p id="resultSubtitle" class="result-subtitle">Hoàn thành xuất sắc 30 câu hỏi chuyên sâu Triết học Mác - Lênin</p>
+
+                <!-- Certificate / Achievement Box -->
+                <div class="achievement-banner">
+                    <div class="achieve-col">
+                        <span class="achieve-label">DANH HIỆU ĐẠT ĐƯỢC</span>
+                        <span class="achieve-value title-value" id="resTitleVal">Đại Triết gia Mác-xít</span>
+                    </div>
+                    <div class="achieve-col">
+                        <span class="achieve-label">PHẦN THƯỞNG BẢO TOÀN</span>
+                        <span class="achieve-value prize-value" id="resPrizeVal">1.000.000.000 VNĐ</span>
+                    </div>
+                    <div class="achieve-col">
+                        <span class="achieve-label">CÂU TRẢ LỜI ĐÚNG</span>
+                        <span class="achieve-value score-value" id="resScoreVal">30 / 30</span>
+                    </div>
+                </div>
+
+                <!-- Summary Quote -->
+                <div class="philosophical-quote-box">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p id="quoteText">"Các nhà triết học từ trước đến nay chỉ giải thích thế giới bằng nhiều cách khác nhau, song vấn đề là cải tạo thế giới."</p>
+                    <span class="quote-author">- C. Mác (Luận cương về Phoiơbắc, 1845)</span>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="result-actions">
+                    <button id="btnPlayAgain" class="btn-play-primary">
+                        <i class="fa-solid fa-rotate-right"></i> <span>CHƠI LẠI (TẠO BỘ 30 CÂU MỚI)</span>
+                    </button>
+                    <button id="btnReviewAllGame" class="btn-secondary-nav">
+                        <i class="fa-solid fa-book-open"></i> <span>XEM LẠI 30 CÂU VỪA ĐẤU</span>
+                    </button>
+                    <button id="btnResultLeaderboard" class="btn-secondary-nav">
+                        <i class="fa-solid fa-trophy"></i> <span>XEM BẢNG VÀNG</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== MODAL: AUDIENCE POLL (HỎI HỘI ĐỒNG TRIẾT GIA) ==================== -->
+    <div class="game-modal" id="modalAudience">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-users gold-icon"></i> Ý KIẾN HỘI ĐỒNG TRIẾT GIA</h3>
+                <button class="modal-close" onclick="GameApp.closeModal('modalAudience')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">Kết quả biểu quyết của các giảng viên & nhà nghiên cứu triết học trong hội trường:</p>
+                
+                <div class="poll-chart">
+                    <div class="poll-bar-col">
+                        <div class="poll-val" id="pollValA">0%</div>
+                        <div class="poll-track">
+                            <div class="poll-fill" id="pollFillA" style="height: 0%;"></div>
+                        </div>
+                        <div class="poll-label">A</div>
+                    </div>
+                    <div class="poll-bar-col">
+                        <div class="poll-val" id="pollValB">0%</div>
+                        <div class="poll-track">
+                            <div class="poll-fill" id="pollFillB" style="height: 0%;"></div>
+                        </div>
+                        <div class="poll-label">B</div>
+                    </div>
+                    <div class="poll-bar-col">
+                        <div class="poll-val" id="pollValC">0%</div>
+                        <div class="poll-track">
+                            <div class="poll-fill" id="pollFillC" style="height: 0%;"></div>
+                        </div>
+                        <div class="poll-label">C</div>
+                    </div>
+                    <div class="poll-bar-col">
+                        <div class="poll-val" id="pollValD">0%</div>
+                        <div class="poll-track">
+                            <div class="poll-fill" id="pollFillD" style="height: 0%;"></div>
+                        </div>
+                        <div class="poll-label">D</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-ok" onclick="GameApp.closeModal('modalAudience')">ĐÃ HIỂU Ý KIẾN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: PHONE A PHILOSOPHER (GỌI ĐIỆN THOẠI) ==================== -->
+    <div class="game-modal" id="modalPhone">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-phone-volume gold-icon"></i> KẾT NỐI VỚI NHÀ THÔNG THÁI</h3>
+                <button class="modal-close" onclick="GameApp.closeModal('modalPhone')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="phone-call-container">
+                    <div class="expert-avatar-box">
+                        <div class="expert-avatar-icon">
+                            <i class="fa-solid fa-user-tie" id="expertAvatar"></i>
+                        </div>
+                        <h4 id="expertName">Karl Marx (C. Mác)</h4>
+                        <span class="expert-badge">Cố vấn Triết học</span>
+                    </div>
+
+                    <div class="phone-speech-bubble">
+                        <div class="bubble-tail"></div>
+                        <p id="expertAdviceText">"Chào bạn! Dựa theo các quy luật duy vật lịch sử, ta tin chắc đáp án chính xác là..."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-ok" onclick="GameApp.closeModal('modalPhone')">CẢM ƠN NHÀ THÔNG THÁI</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: STUDY MODE / BROWSE 150 QUESTIONS ==================== -->
+    <div class="game-modal" id="modalStudy">
+        <div class="modal-card modal-large glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-database gold-icon"></i> NGÂN HÀNG 150 CÂU HỎI TRIẾT HỌC MÁC - LÊNIN (TR. 247-274)</h3>
+                <button class="modal-close" onclick="GameApp.closeModal('modalStudy')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Search & Filters -->
+                <div class="study-filter-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="studySearchInput" placeholder="Tìm kiếm từ khóa (ví dụ: tha hóa, Phoiơbắc, Hồ Chí Minh, bản chất...)">
+                    </div>
+                    <div class="select-filter">
+                        <select id="studyCategorySelect">
+                            <option value="ALL">Tất cả chủ đề (150 câu)</option>
+                            <option value="Bản chất con người">1. Bản chất con người (tr. 247-253)</option>
+                            <option value="Tha hóa & Giải phóng">2. Tha hóa & Giải phóng con người (tr. 253-257)</option>
+                            <option value="Cá nhân & Xã hội">3. Quan hệ cá nhân & xã hội (tr. 257-260)</option>
+                            <option value="Quần chúng nhân dân & Lãnh tụ">4. Quần chúng nhân dân & Lãnh tụ (tr. 260-265)</option>
+                            <option value="Tư tưởng Hồ Chí Minh & Đổi mới">5. Vấn đề con người ở Việt Nam (tr. 265-272)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Questions List Container -->
+                <div class="study-questions-list" id="studyQuestionsList">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="study-count-info" id="studyCountInfo">Hiển thị 150 / 150 câu hỏi</span>
+                <button class="btn-modal-ok" onclick="GameApp.closeModal('modalStudy')">ĐÓNG TRA CỨU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: LEADERBOARD ==================== -->
+    <div class="game-modal" id="modalLeaderboard">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-trophy gold-icon"></i> BẢNG VÀNG DANH VỌNG TRIẾT GIA</h3>
+                <button class="modal-close" onclick="GameApp.closeModal('modalLeaderboard')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="leaderboard-table-container">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Hạng</th>
+                                <th>Nhà Triết học</th>
+                                <th>Cấp đạt</th>
+                                <th>Danh hiệu</th>
+                                <th>Tiền thưởng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardTbody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-ok" onclick="GameApp.closeModal('modalLeaderboard')">ĐÓNG</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: REVIEW PLAYTHROUGH QUESTIONS ==================== -->
+    <div class="game-modal" id="modalReview">
+        <div class="modal-card modal-large glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-list-check gold-icon"></i> XEM LẠI 30 CÂU HỎI TRẬN ĐẤU VỪA RỒI</h3>
+                <button class="modal-close" onclick="GameApp.closeModal('modalReview')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="review-questions-list" id="reviewQuestionsList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-ok" onclick="GameApp.closeModal('modalReview')">ĐÓNG XEM LẠI</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>
