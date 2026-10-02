@@ -1,15 +1,15 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import json
 import os
 import random
 from typing import List, Optional
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, FileResponse, Response
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI(title="Ai là Triết học gia")
+app = FastAPI(title="Ai la Triet hoc gia API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,8 +21,6 @@ app.add_middleware(
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_FILE = os.path.join(ROOT_DIR, "data", "questions.json")
-if not os.path.exists(DATA_FILE):
-    DATA_FILE = os.path.join(ROOT_DIR, "game", "backend", "questions.json")
 
 def load_questions():
     if os.path.exists(DATA_FILE):
@@ -32,7 +30,6 @@ def load_questions():
 
 ALL_QUESTIONS = load_questions()
 
-# Models
 class ScoreEntry(BaseModel):
     playerName: str
     score: int
@@ -51,7 +48,7 @@ def health_check():
     return {
         "status": "healthy",
         "total_questions": len(ALL_QUESTIONS),
-        "game": "Ai là Triết học gia"
+        "game": "Ai la Triet hoc gia"
     }
 
 @app.get("/api/questions/all")
@@ -91,21 +88,21 @@ def lifeline_audience(req: LifelineRequest):
         cuts = [0] + cuts + [rem]
         for i, opt in enumerate(other):
             votes[opt] = cuts[i+1] - cuts[i]
-    return {"votes": [votes[0], votes[1], votes[2], votes[3]], "message": "Hội đồng Triết gia đã biểu quyết!"}
+    return {"votes": [votes[0], votes[1], votes[2], votes[3]], "message": "Hoi dong Triet gia da bieu quyet!"}
 
 @app.post("/api/lifeline/phone")
 def lifeline_phone(req: LifelineRequest):
     philosophers = [
-        {"name": "Karl Marx (C. Mác)", "quote": "Bản chất con người là tổng hòa các quan hệ xã hội. Theo quy luật duy vật lịch sử, ta tin chắc đáp án là..."},
-        {"name": "Friedrich Engels (Ph. Ăngghen)", "quote": "Lao động đã sáng tạo ra con người. Xét theo phép biện chứng duy vật, ta khuyên bạn chọn..."},
-        {"name": "V.I. Lênin", "quote": "Thực tiễn là tiêu chuẩn của chân lý. Đọc kỹ câu hỏi thì lựa chọn sáng suốt nhất là..."},
-        {"name": "Chủ tịch Hồ Chí Minh", "quote": "Con người vừa là mục tiêu vừa là động lực của cách mạng. Theo Bác, cháu nên cân nhắc kỹ phương án..."}
+        {"name": "Karl Marx (C. Mac)", "quote": "Ban chat con nguoi la tong hoa cac quan he xa hoi. Theo quy luat duy vat lich su, ta tin chac dap an la..."},
+        {"name": "Friedrich Engels (Ph. Angghen)", "quote": "Lao dong da sang tao ra con nguoi. Xet theo phep bien chung duy vat, ta khuyen ban chon..."},
+        {"name": "V.I. Lenin", "quote": "Thuc tien la tieu chuan cua chan ly. Doc ky cau hoi thi lua chon sang suot nhat la..."},
+        {"name": "Chu tich Ho Chi Minh", "quote": "Con nguoi vua la muc tieu vua la dong luc cua cach mang. Theo Bac, chau nen can nhac ky phuong an..."}
     ]
     exp = random.choice(philosophers)
     c_char = ["A", "B", "C", "D"][req.correctIndex]
     return {
         "expert": exp["name"],
-        "advice": f"{exp['quote']} **[{c_char}]**! (Tôi chắc chắn 95%)",
+        "advice": f"{exp['quote']} **[{c_char}]**! (Toi chac chan 95%)",
         "recommendedOption": c_char
     }
 
@@ -115,18 +112,16 @@ def lifeline_switch(req: LifelineRequest):
     if not pool: pool = [q for q in ALL_QUESTIONS if q["id"] != req.questionId]
     return {"newQuestion": random.choice(pool) if pool else ALL_QUESTIONS[0]}
 
-# Serve Root Index HTML directly
+# Fallback root route in FastAPI
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     index_path = os.path.join(ROOT_DIR, "index.html")
     if os.path.exists(index_path):
         with open(index_path, "r", encoding="utf-8") as f:
             return HTMLResponse(content=f.read(), status_code=200)
-    return HTMLResponse("<h1>Ai Là Triết Học Gia</h1><p>Đang khởi tạo...</p>", status_code=200)
+    return HTMLResponse("<h1>Ai La Triet Hoc Gia</h1>", status_code=200)
 
-# Serve static CSS, JS, DATA
 for folder in ["css", "js", "data", "assets"]:
     f_path = os.path.join(ROOT_DIR, folder)
     if os.path.exists(f_path):
         app.mount(f"/{folder}", StaticFiles(directory=f_path), name=folder)
-
