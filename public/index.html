@@ -218,7 +218,10 @@
                 <!-- Right Column: 30-Level Money / Rank Ladder -->
                 <aside class="ladder-sidebar glass-panel" id="ladderSidebar">
                     <div class="ladder-header">
-                        <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG TRIẾT HỌC</h3>
+                        <div class="ladder-header-title">
+                            <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG</h3>
+                            <button id="btnCloseLadder" class="btn-close-ladder mobile-only" title="Đóng">&times;</button>
+                        </div>
                         <p class="player-tag"><i class="fa-solid fa-user"></i> <span id="sidebarPlayerName">Người chơi</span></p>
                     </div>
                     
@@ -278,6 +281,8 @@
             </div>
         </section>
 
+        <!-- Backdrop for mobile ladder drawer -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
     </main>
 
     <!-- ==================== MODAL: AUDIENCE POLL (HỎI HỘI ĐỒNG TRIẾT GIA) ==================== -->

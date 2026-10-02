@@ -121,9 +121,27 @@ const GameApp = {
             this.openLeaderboardModal();
         });
 
-        document.getElementById('btnToggleLadder').addEventListener('click', () => {
-            document.getElementById('ladderSidebar').classList.toggle('open');
-        });
+        const toggleLadder = () => {
+            const sidebar = document.getElementById('ladderSidebar');
+            const backdrop = document.getElementById('drawerBackdrop');
+            sidebar.classList.toggle('open');
+            if (backdrop) backdrop.classList.toggle('active', sidebar.classList.contains('open'));
+        };
+        const closeLadder = () => {
+            const sidebar = document.getElementById('ladderSidebar');
+            const backdrop = document.getElementById('drawerBackdrop');
+            sidebar.classList.remove('open');
+            if (backdrop) backdrop.classList.remove('active');
+        };
+
+        const btnToggle = document.getElementById('btnToggleLadder');
+        if (btnToggle) btnToggle.addEventListener('click', toggleLadder);
+
+        const btnClose = document.getElementById('btnCloseLadder');
+        if (btnClose) btnClose.addEventListener('click', closeLadder);
+
+        const backdrop = document.getElementById('drawerBackdrop');
+        if (backdrop) backdrop.addEventListener('click', closeLadder);
 
         // Result screen buttons
         document.getElementById('btnPlayAgain').addEventListener('click', () => {
