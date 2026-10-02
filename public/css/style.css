@@ -243,7 +243,7 @@ body.game-body {
     width: 100%;
     align-items: center;
     justify-content: center;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 .game-screen {
@@ -452,7 +452,7 @@ body.game-body {
     width: 100%;
 }
 
-/* Arena Top Bar (Exactly like Image 2) */
+/* Arena Top Bar (Image 2 style) */
 .arena-topbar {
     display: flex;
     align-items: center;
@@ -583,7 +583,7 @@ body.game-body {
     box-shadow: 0 0 15px rgba(255, 56, 96, 0.4);
 }
 
-/* Question Meta Bar (Exactly like Image 2: 2 rows with left/right alignment) */
+/* Question Meta Bar (Image 2 style) */
 .question-meta-bar {
     display: flex;
     flex-direction: column;
@@ -817,12 +817,6 @@ body.game-body {
     margin-bottom: 8px;
 }
 
-.ladder-header-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .ladder-header h3 {
     font-size: 0.98rem;
     font-weight: 800;
@@ -836,15 +830,6 @@ body.game-body {
     font-size: 0.78rem;
     color: var(--text-muted);
     margin-top: 4px;
-}
-
-.btn-close-ladder {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    font-size: 1.8rem;
-    cursor: pointer;
-    line-height: 1;
 }
 
 .ladder-list {
@@ -867,22 +852,35 @@ body.game-body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #94a3b8;
     background: rgba(255, 255, 255, 0.03);
     transition: all 0.2s ease;
+    gap: 8px;
 }
 
 .ladder-item .level-num {
     min-width: 24px;
     color: var(--gold-primary);
+    font-weight: 800;
+}
+
+.ladder-item .level-title-tag {
+    flex: 1;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .ladder-item .level-prize {
     letter-spacing: 0.5px;
+    color: #e2e8f0;
 }
 
 .ladder-item.milestone {
@@ -895,11 +893,25 @@ body.game-body {
     color: #ffffff;
 }
 
+.ladder-item.milestone .level-title-tag {
+    color: #93c5fd;
+}
+
+.ladder-item.milestone .level-prize {
+    color: #ffffff;
+    font-weight: 800;
+}
+
 .ladder-item.milestone-final {
     color: var(--gold-bright);
     font-weight: 900;
-    background: linear-gradient(90deg, rgba(245, 179, 1, 0.2), rgba(245, 179, 1, 0.05));
+    background: linear-gradient(90deg, rgba(245, 179, 1, 0.25), rgba(245, 179, 1, 0.08));
     border: 1px solid rgba(245, 179, 1, 0.4);
+}
+
+.ladder-item.milestone-final .level-title-tag {
+    color: var(--gold-bright);
+    font-weight: 800;
 }
 
 .ladder-item.current {
@@ -910,8 +922,11 @@ body.game-body {
     box-shadow: 0 0 15px var(--gold-glow);
 }
 
-.ladder-item.current .level-num {
+.ladder-item.current .level-num,
+.ladder-item.current .level-title-tag,
+.ladder-item.current .level-prize {
     color: #061129 !important;
+    font-weight: 900 !important;
 }
 
 .ladder-item.passed {
@@ -922,8 +937,41 @@ body.game-body {
     color: #00e676;
 }
 
-.ladder-footer {
-    display: none;
+/* Modal Ladder Styling */
+.modal-ladder-card {
+    max-width: 480px;
+    width: 95vw;
+    background: #061129 !important;
+    border: 2px solid var(--gold-primary);
+}
+
+.modal-ladder-body {
+    max-height: 65vh;
+    max-height: 65dvh;
+    padding: 12px 14px;
+}
+
+.ladder-meta-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(13, 32, 71, 0.8);
+    border: 1px solid rgba(245, 179, 1, 0.3);
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+}
+
+.ladder-current-level-badge {
+    color: var(--gold-bright);
+    font-weight: 700;
+}
+
+.modal-ladder-list {
+    max-height: 52vh;
+    max-height: 52dvh;
+    gap: 4px;
 }
 
 /* ==================== SCREEN 3: RESULT SCREEN ==================== */
@@ -1048,20 +1096,21 @@ body.game-body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    z-index: 1000;
+    z-index: 10000;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 12px;
     animation: fadeInModal 0.25s ease forwards;
 }
 
 .game-modal.active {
-    display: flex;
+    display: flex !important;
 }
 
 .modal-card {
@@ -1115,7 +1164,7 @@ body.game-body {
 }
 
 .modal-body {
-    padding: 20px;
+    padding: 18px;
     overflow-y: auto;
     flex: 1;
 }
@@ -1148,6 +1197,9 @@ body.game-body {
     font-weight: 800;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .btn-modal-ok:hover {
@@ -1418,72 +1470,18 @@ body.game-body {
 }
 
 /* ==========================================================================
-   MOBILE RESPONSIVE SYSTEM (100% MATCHING IMAGE 2 & ZERO OVERFLOW)
+   MOBILE RESPONSIVE SYSTEM (MATCHING IMAGE 2 EXACTLY & ZERO SCREEN GLITCHES)
    ========================================================================== */
-
-/* Drawer backdrop for mobile */
-.drawer-backdrop {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 998;
-}
-
-.drawer-backdrop.active {
-    display: block;
-}
 
 @media (max-width: 1024px) {
     .gameplay-layout {
-        grid-template-columns: 1fr;
-        width: 100%;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
     }
 
-    /* ON MOBILE: LADDER IS A CENTERED MODAL OVERLAY (NO HORIZONTAL OVERFLOW EVER) */
+    /* ON MOBILE: HIDE THE INLINE DESKTOP SIDEBAR COMPLETELY */
     .ladder-sidebar {
         display: none !important;
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: min(360px, 92vw) !important;
-        max-height: 85vh !important;
-        max-height: 85dvh !important;
-        height: auto !important;
-        z-index: 1000 !important;
-        border-radius: 18px !important;
-        background: #061129 !important;
-        border: 2px solid var(--gold-primary) !important;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 30px var(--gold-glow) !important;
-        padding: 16px 14px !important;
-        flex-direction: column !important;
-    }
-
-    .ladder-sidebar.open {
-        display: flex !important;
-        animation: scaleUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-    }
-
-    .ladder-footer {
-        display: flex !important;
-        margin-top: 10px;
-    }
-
-    .btn-close-ladder-bottom {
-        width: 100%;
-        padding: 12px;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
     }
 
     .mobile-only {
@@ -1562,7 +1560,7 @@ body.game-body {
         font-size: 0.95rem;
     }
 
-    /* Gameplay Screen Mobile (Matches Image 2 Precisely) */
+    /* Gameplay Screen Mobile (Matches Image 2 Exactly) */
     .game-arena {
         gap: 10px;
         width: 100%;

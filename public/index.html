@@ -45,7 +45,7 @@
             <button id="btnLeaderboard" class="btn-secondary-nav" title="Bảng vàng Triết gia">
                 <i class="fa-solid fa-trophy"></i> <span>Bảng Vàng</span>
             </button>
-            <button id="btnToggleLadder" class="btn-secondary-nav btn-ladder-nav mobile-only" title="Bật/Tắt Bậc thang điểm">
+            <button id="btnToggleLadder" class="btn-secondary-nav btn-ladder-nav mobile-only" title="Xem Bậc thang điểm">
                 <i class="fa-solid fa-ranking-star gold-icon"></i> <span>Bậc thang</span>
             </button>
         </div>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
 
-                    <!-- Question Info Bar (2 Clean Rows Matching Design) -->
+                    <!-- Question Info Bar (Matches Image 2 exactly) -->
                     <div class="question-meta-bar">
                         <div class="meta-row meta-row-top">
                             <span class="meta-badge q-num-badge" id="currentQNumBadge">Câu hỏi 1 / 30</span>
@@ -210,26 +210,15 @@
 
                 </div>
 
-                <!-- Right Column / Modal: 30-Level Rank Ladder -->
+                <!-- Desktop Sidebar (Hidden on Mobile) -->
                 <aside class="ladder-sidebar glass-panel" id="ladderSidebar">
                     <div class="ladder-header">
-                        <div class="ladder-header-title">
-                            <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG DANH VỌNG</h3>
-                            <button id="btnCloseLadder" class="btn-close-ladder" title="Đóng bậc thang">
-                                &times;
-                            </button>
-                        </div>
+                        <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG DANH VỌNG</h3>
                         <p class="player-tag"><i class="fa-solid fa-user"></i> <span id="sidebarPlayerName">Người chơi</span></p>
                     </div>
                     
                     <div class="ladder-list" id="ladderList">
-                        <!-- Populated by JavaScript from level 30 down to level 1 -->
-                    </div>
-
-                    <div class="ladder-footer">
-                        <button id="btnBottomCloseLadder" class="btn-modal-ok btn-close-ladder-bottom">
-                            <i class="fa-solid fa-check"></i> ĐÃ HIỂU (QUAY LẠI CÂU HỎI)
-                        </button>
+                        <!-- Populated by JavaScript -->
                     </div>
                 </aside>
 
@@ -284,9 +273,31 @@
             </div>
         </section>
 
-        <!-- Backdrop for mobile ladder drawer -->
-        <div class="drawer-backdrop" id="drawerBackdrop"></div>
     </main>
+
+    <!-- ==================== MODAL: LADDER (BẬC THANG DANH VỌNG) ==================== -->
+    <div class="game-modal" id="modalLadder">
+        <div class="modal-card modal-ladder-card glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-ranking-star gold-icon"></i> 30 BẬC THANG DANH VỌNG</h3>
+                <button class="modal-close" onclick="GameApp.closeModal('modalLadder')">&times;</button>
+            </div>
+            <div class="modal-body modal-ladder-body">
+                <div class="ladder-meta-info">
+                    <span class="ladder-player-info"><i class="fa-solid fa-user-graduate gold-icon"></i> <strong id="modalLadderPlayerName">Nhà Triết học</strong></span>
+                    <span class="ladder-current-level-badge"><i class="fa-solid fa-bullseye"></i> Đang ở: <strong id="modalLadderCurrentLvl">Bậc 1</strong></span>
+                </div>
+                <div class="ladder-list modal-ladder-list" id="modalLadderList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-ok" onclick="GameApp.closeModal('modalLadder')">
+                    <i class="fa-solid fa-check"></i> ĐÃ HIỂU (QUAY LẠI TRẬN ĐẤU)
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- ==================== MODAL: AUDIENCE POLL ==================== -->
     <div class="game-modal" id="modalAudience">

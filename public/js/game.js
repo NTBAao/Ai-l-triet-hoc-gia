@@ -121,43 +121,17 @@ const GameApp = {
             this.openLeaderboardModal();
         });
 
-                const toggleLadder = (e) => {
+        // Open Ladder Modal on Mobile or button click
+        const openLadder = (e) => {
             if (e) e.stopPropagation();
-            const sidebar = document.getElementById('ladderSidebar');
-            const backdrop = document.getElementById('drawerBackdrop');
-            const isOpen = sidebar.classList.toggle('open');
-            if (backdrop) backdrop.classList.toggle('active', isOpen);
-            if (isOpen) {
-                // Scroll current level into view
-                const curItem = document.getElementById(`ladderItem${this.currentLevel}`);
-                if (curItem) {
-                    setTimeout(() => curItem.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
-                }
-            }
             AudioSys.playClick();
-        };
-
-        const closeLadder = (e) => {
-            if (e) e.stopPropagation();
-            const sidebar = document.getElementById('ladderSidebar');
-            const backdrop = document.getElementById('drawerBackdrop');
-            sidebar.classList.remove('open');
-            if (backdrop) backdrop.classList.remove('active');
-            AudioSys.playClick();
+            this.openLadderModal();
         };
 
         ['btnToggleLadder', 'btnArenaLadder'].forEach(id => {
             const btn = document.getElementById(id);
-            if (btn) btn.addEventListener('click', toggleLadder);
+            if (btn) btn.addEventListener('click', openLadder);
         });
-
-        ['btnCloseLadder', 'btnBottomCloseLadder'].forEach(id => {
-            const btn = document.getElementById(id);
-            if (btn) btn.addEventListener('click', closeLadder);
-        });
-
-        const backdrop = document.getElementById('drawerBackdrop');
-        if (backdrop) backdrop.addEventListener('click', closeLadder);
 
         // Result screen buttons
         document.getElementById('btnPlayAgain').addEventListener('click', () => {
@@ -181,110 +155,135 @@ const GameApp = {
     },
 
     renderLadder() {
-        const ladderList = document.getElementById('ladderList');
-        ladderList.innerHTML = '';
-        // Render from 30 down to 1
-        for (let i = LADDER_CONFIG.length - 1; i >= 0; i--) {
-            const item = LADDER_CONFIG[i];
-            const div = document.createElement('div');
-            div.className = `ladder-item ${item.milestone ? (item.final ? 'milestone-final' : 'milestone') : ''}`;
-            div.id = `ladderItem${item.level}`;
-            div.innerHTML = `
-                <span class="level-num">${item.level}</span>
-                <span class="level-prize">${item.prize}</span>
-            `;
-            ladderList.appendChild(div);
-        }
+        const containers = [
+            document.getElementById('ladderList'),
+            document.getElementById('modalLadderList')
+        ];
+        
+        containers.forEach(container => {
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = LADDER_CONFIG.length - 1; i >= 0; i--) {
+                const item = LADDER_CONFIG[i];
+                const div = document.createElement('div');
+                div.className = `ladder-item ${item.milestone ? (item.final ? 'milestone-final' : 'milestone') : ''}`;
+                div.id = `${container.id === 'modalLadderList' ? 'modalLadderItem' : 'ladderItem'}${item.level}`;
+                div.innerHTML = `
+                    <span class="level-num">${item.level}</span>
+                    <span class="level-title-tag">${item.title}</span>
+                    <span class="level-prize">${item.prize}</span>
+                `;
+                container.appendChild(div);
+            }
+        });
     },
 
-    updateLadderState() {
-        for (let i = 1; i <= 30; i++) {
-            const el = document.getElementById(`ladderItem${i}`);
-            if (!el) continue;
-            el.classList.remove('current', 'passed');
-            if (i === this.currentLevel) {
-                el.classList.add('current');
-                // Scroll into view if needed
-                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            } else if (i < this.currentLevel) {
-                el.classList.add('passed');
-            }
-        }
+    openLadderModal() {
+        document.getElementById('modalLadderPlayerName').innerText = this.playerName;
+        document.getElementById('modalLadderCurrentLvl').innerText = `Bậc ${this.currentLevel}`;
+        this.updateLadderUI();
+        this.openModal('modalLadder');
+        
+        // Auto scroll to current level in modal
+        setTimeout(() => {
+            const cur = document.getElementById(`modalLadderItem${this.currentLevel}`);
+            if (cur) cur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
     },
 
     async startNewGame() {
         this.currentLevel = 1;
         this.answeredQuestions = [];
         this.lifelines = { fifty: false, audience: false, phone: false, switch: false };
-        this.resetLifelineButtons();
+        this.activeOptions = [0, 1, 2, 3];
+        this.isAnsweringLocked = false;
 
-        // Show game screen
-        this.showScreen('screenGame');
+        // Reset lifeline UI buttons
+        ['llFifty', 'llAudience', 'llPhone', 'llSwitch'].forEach(id => {
+            const btn = document.getElementById(id);
+            btn.disabled = false;
+        });
 
-        // Fetch 30 randomized questions from API
-        document.getElementById('questionText').innerText = "Đang kết nối trường quay và bốc thăm 30 câu hỏi ngẫu nhiên...";
-        const qs = await GameAPI.getRandomQuestions();
-        if (!qs || qs.length === 0) {
-            alert("Lỗi tải câu hỏi từ hệ thống. Vui lòng thử lại!");
-            this.showScreen('screenWelcome');
+        // Fetch 30 questions
+        this.questions = await GameAPI.getRandomQuestions();
+        if (!this.questions || this.questions.length === 0) {
+            alert("Không thể tải ngân hàng câu hỏi. Đang sử dụng câu hỏi mặc định.");
             return;
         }
 
-        this.questions = qs;
+        AudioSys.playStart();
+        this.showScreen('screenGame');
         this.loadQuestionForCurrentLevel();
     },
 
-    resetLifelineButtons() {
-        ['Fifty', 'Audience', 'Phone', 'Switch'].forEach(name => {
-            const btn = document.getElementById(`ll${name}`);
-            btn.disabled = false;
-        });
-    },
-
     loadQuestionForCurrentLevel() {
-        if (this.currentLevel > 30 || this.currentLevel > this.questions.length) {
-            this.handleVictory();
-            return;
-        }
-
-        this.isAnsweringLocked = false;
-        this.activeOptions = [0, 1, 2, 3];
         this.currentQuestion = this.questions[this.currentLevel - 1];
+        this.activeOptions = [0, 1, 2, 3];
+        this.isAnsweringLocked = false;
 
         // Hide explanation panel
         document.getElementById('postAnswerPanel').style.display = 'none';
 
-        // Update ladder & meta
-        this.updateLadderState();
-        const curConfig = LADDER_CONFIG[this.currentLevel - 1];
+        // Update Meta
         document.getElementById('currentQNumBadge').innerText = `Câu hỏi ${this.currentLevel} / 30`;
         document.getElementById('currentQCategory').innerText = this.currentQuestion.category || "Triết học Mác - Lênin";
-        document.getElementById('currentQValue').innerText = curConfig.prize;
+        const cfg = LADDER_CONFIG[this.currentLevel - 1];
+        document.getElementById('currentQValue').innerText = cfg.prize;
 
-        // Render question text & options
+        // Update Question text
         document.getElementById('questionText').innerText = this.currentQuestion.question;
 
+        // Update 4 options
         for (let i = 0; i < 4; i++) {
             const btn = document.getElementById(`optBtn${i}`);
-            const textEl = document.getElementById(`optText${i}`);
+            const textSpan = document.getElementById(`optText${i}`);
             btn.className = 'answer-box';
             btn.disabled = false;
-            textEl.innerText = this.currentQuestion.options[i];
+            textSpan.innerText = this.currentQuestion.options[i];
         }
 
-        // Start 45s timer & suspense sound
+        // Update Ladder active step
+        this.updateLadderUI();
+
+        // Start Timer
         this.startTimer();
-        AudioSys.startSuspense();
+        AudioSys.playSuspense();
+    },
+
+    updateLadderUI() {
+        const prefixes = ['ladderItem', 'modalLadderItem'];
+        prefixes.forEach(prefix => {
+            for (let i = 1; i <= 30; i++) {
+                const item = document.getElementById(`${prefix}${i}`);
+                if (!item) continue;
+                item.classList.remove('current', 'passed');
+                if (i === this.currentLevel) {
+                    item.classList.add('current');
+                } else if (i < this.currentLevel) {
+                    item.classList.add('passed');
+                }
+            }
+        });
+
+        // Scroll desktop ladder to view
+        const activeItem = document.getElementById(`ladderItem${this.currentLevel}`);
+        if (activeItem) {
+            activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     },
 
     startTimer() {
         this.stopTimer();
         this.timerSeconds = 45;
-        this.updateTimerDisplay();
+        this.updateTimerUI();
 
         this.timerInterval = setInterval(() => {
             this.timerSeconds--;
-            this.updateTimerDisplay();
+            this.updateTimerUI();
+
+            if (this.timerSeconds <= 10 && this.timerSeconds > 0) {
+                AudioSys.playTick();
+            }
 
             if (this.timerSeconds <= 0) {
                 this.stopTimer();
@@ -300,15 +299,15 @@ const GameApp = {
         }
     },
 
-    updateTimerDisplay() {
-        const timerText = document.getElementById('timerCount');
-        const timerCircle = document.getElementById('timerCircleProgress');
+    updateTimerUI() {
+        const text = document.getElementById('timerCount');
+        const circle = document.getElementById('timerCircleProgress');
         const wrapper = document.querySelector('.timer-wrapper');
 
-        timerText.innerText = this.timerSeconds;
-        const total = 45;
-        const offset = 264 - (this.timerSeconds / total) * 264;
-        timerCircle.style.strokeDashoffset = offset;
+        text.innerText = this.timerSeconds;
+        // Total dasharray = 264
+        const offset = 264 - (264 * this.timerSeconds) / 45;
+        circle.style.strokeDashoffset = offset;
 
         if (this.timerSeconds <= 10) {
             wrapper.classList.add('danger');
@@ -323,26 +322,13 @@ const GameApp = {
         this.stopTimer();
         AudioSys.stopSuspense();
 
-        // Lock in sound & highlight orange
-        AudioSys.playLockIn();
         const selectedBtn = document.getElementById(`optBtn${selectedIndex}`);
         selectedBtn.classList.add('selected');
+        AudioSys.playLockIn();
 
-        // Disable all other buttons during suspense delay (1.5s)
-        for (let i = 0; i < 4; i++) {
-            document.getElementById(`optBtn${i}`).disabled = true;
-        }
+        const isCorrect = (selectedIndex === this.currentQuestion.correct);
 
-        setTimeout(() => {
-            this.evaluateAnswer(selectedIndex);
-        }, 1400);
-    },
-
-    evaluateAnswer(selectedIndex) {
-        const correctIndex = this.currentQuestion.correct;
-        const isCorrect = selectedIndex === correctIndex;
-
-        // Record history for review
+        // Record history
         this.answeredQuestions.push({
             level: this.currentLevel,
             question: this.currentQuestion,
@@ -350,22 +336,29 @@ const GameApp = {
             isCorrect: isCorrect
         });
 
-        // Reveal correct answer
+        // Delay reveal
+        setTimeout(() => {
+            this.revealAnswer(selectedIndex, isCorrect);
+        }, 1500);
+    },
+
+    revealAnswer(selectedIndex, isCorrect) {
+        const correctIndex = this.currentQuestion.correct;
+        const selectedBtn = document.getElementById(`optBtn${selectedIndex}`);
         const correctBtn = document.getElementById(`optBtn${correctIndex}`);
-        correctBtn.classList.remove('selected');
-        correctBtn.classList.add('correct');
+
+        selectedBtn.classList.remove('selected');
 
         if (isCorrect) {
+            correctBtn.classList.add('correct');
             AudioSys.playCorrect();
-            // Show explanation panel
             this.showExplanation(true);
         } else {
+            selectedBtn.classList.add('wrong');
+            correctBtn.classList.add('correct');
             AudioSys.playWrong();
-            const wrongBtn = document.getElementById(`optBtn${selectedIndex}`);
-            wrongBtn.classList.remove('selected');
-            wrongBtn.classList.add('wrong');
-            
-            // Show explanation then terminate game
+            this.showExplanation(false);
+
             setTimeout(() => {
                 this.handleGameOver(false);
             }, 2500);
