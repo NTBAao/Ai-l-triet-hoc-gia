@@ -1,10 +1,14 @@
-# Chỉ dùng public/ cho Vercel static deploy
-data/
-game/
-api/
-requirements.txt
+.vercel/
+.env*
+node_modules/
 *.pyc
 __pycache__/
 *.bat
-node_modules/
-.env*
+game/
+api/
+assets/
+data/
+requirements.txt
+css/
+js/
+index.html
