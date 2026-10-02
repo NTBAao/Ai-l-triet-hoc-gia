@@ -1,14 +1,10 @@
-# Backend - không cần cho static deploy
+# Chỉ dùng public/ cho Vercel static deploy
+data/
 game/
 api/
 requirements.txt
-
-# CSS/JS trùng lặp ở root
-css/
-js/
-
-# Misc
 *.pyc
 __pycache__/
 *.bat
 node_modules/
+.env*
