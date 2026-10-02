@@ -4,36 +4,36 @@
  */
 
 const LADDER_CONFIG = [
-    { level: 1, prize: "500.000 VNĐ", val: 500000, milestone: false, title: "Tập sự Triết học" },
-    { level: 2, prize: "1.000.000 VNĐ", val: 1000000, milestone: false, title: "Tập sự Triết học" },
-    { level: 3, prize: "1.500.000 VNĐ", val: 1500000, milestone: false, title: "Sinh viên Nhập môn" },
-    { level: 4, prize: "2.500.000 VNĐ", val: 2500000, milestone: false, title: "Sinh viên Nhập môn" },
-    { level: 5, prize: "5.000.000 VNĐ", val: 5000000, milestone: true, title: "Tân Cử nhân Triết học" },
-    { level: 6, prize: "7.500.000 VNĐ", val: 7500000, milestone: false, title: "Cử nhân Triết học" },
-    { level: 7, prize: "10.000.000 VNĐ", val: 10000000, milestone: false, title: "Cử nhân Triết học" },
-    { level: 8, prize: "13.000.000 VNĐ", val: 13000000, milestone: false, title: "Học viên Cao học" },
-    { level: 9, prize: "17.000.000 VNĐ", val: 17000000, milestone: false, title: "Học viên Cao học" },
-    { level: 10, prize: "22.000.000 VNĐ", val: 22000000, milestone: true, title: "Thạc sĩ Triết học Mác-xít" },
-    { level: 11, prize: "28.000.000 VNĐ", val: 28000000, milestone: false, title: "Nghiên cứu sinh Triết học" },
-    { level: 12, prize: "35.000.000 VNĐ", val: 35000000, milestone: false, title: "Nghiên cứu sinh Triết học" },
-    { level: 13, prize: "42.000.000 VNĐ", val: 42000000, milestone: false, title: "Giảng viên Triết học" },
-    { level: 14, prize: "50.000.000 VNĐ", val: 50000000, milestone: false, title: "Giảng viên Triết học" },
-    { level: 15, prize: "60.000.000 VNĐ", val: 60000000, milestone: true, title: "Tiến sĩ Triết học Duy vật" },
-    { level: 16, prize: "75.000.000 VNĐ", val: 75000000, milestone: false, title: "Tiến sĩ Ưu tú" },
-    { level: 17, prize: "90.000.000 VNĐ", val: 90000000, milestone: false, title: "Tiến sĩ Ưu tú" },
-    { level: 18, prize: "110.000.000 VNĐ", val: 110000000, milestone: false, title: "Chuyên gia Lý luận" },
-    { level: 19, prize: "130.000.000 VNĐ", val: 130000000, milestone: false, title: "Chuyên gia Lý luận" },
-    { level: 20, prize: "150.000.000 VNĐ", val: 150000000, milestone: true, title: "Phó Giáo sư Triết học" },
-    { level: 21, prize: "180.000.000 VNĐ", val: 180000000, milestone: false, title: "Nhà Khảo cứu Biện chứng" },
-    { level: 22, prize: "220.000.000 VNĐ", val: 220000000, milestone: false, title: "Nhà Khảo cứu Biện chứng" },
-    { level: 23, prize: "270.000.000 VNĐ", val: 270000000, milestone: false, title: "Nhà Tư tưởng Tiên phong" },
-    { level: 24, prize: "330.000.000 VNĐ", val: 330000000, milestone: false, title: "Nhà Tư tưởng Tiên phong" },
-    { level: 25, prize: "400.000.000 VNĐ", val: 400000000, milestone: true, title: "Giáo sư - Viện sĩ Triết học" },
-    { level: 26, prize: "500.000.000 VNĐ", val: 500000000, milestone: false, title: "Đại học giả Kinh điển" },
-    { level: 27, prize: "620.000.000 VNĐ", val: 620000000, milestone: false, title: "Đại học giả Kinh điển" },
-    { level: 28, prize: "750.000.000 VNĐ", val: 750000000, milestone: false, title: "Bậc thầy Duy vật Lịch sử" },
-    { level: 29, prize: "880.000.000 VNĐ", val: 880000000, milestone: false, title: "Bậc thầy Duy vật Lịch sử" },
-    { level: 30, prize: "1.000.000.000 VNĐ", val: 1000000000, milestone: true, final: true, title: "ĐẠI TRIẾT GIA MÁC-XÍT NHÂN LOẠI" }
+    { level: 1, prize: "500.000 điểm", val: 500000, milestone: false, title: "Tập sự Triết học" },
+    { level: 2, prize: "1.000.000 điểm", val: 1000000, milestone: false, title: "Tập sự Triết học" },
+    { level: 3, prize: "1.500.000 điểm", val: 1500000, milestone: false, title: "Sinh viên Nhập môn" },
+    { level: 4, prize: "2.500.000 điểm", val: 2500000, milestone: false, title: "Sinh viên Nhập môn" },
+    { level: 5, prize: "5.000.000 điểm", val: 5000000, milestone: true, title: "Tân Cử nhân Triết học" },
+    { level: 6, prize: "7.500.000 điểm", val: 7500000, milestone: false, title: "Cử nhân Triết học" },
+    { level: 7, prize: "10.000.000 điểm", val: 10000000, milestone: false, title: "Cử nhân Triết học" },
+    { level: 8, prize: "13.000.000 điểm", val: 13000000, milestone: false, title: "Học viên Cao học" },
+    { level: 9, prize: "17.000.000 điểm", val: 17000000, milestone: false, title: "Học viên Cao học" },
+    { level: 10, prize: "22.000.000 điểm", val: 22000000, milestone: true, title: "Thạc sĩ Triết học Mác-xít" },
+    { level: 11, prize: "28.000.000 điểm", val: 28000000, milestone: false, title: "Nghiên cứu sinh Triết học" },
+    { level: 12, prize: "35.000.000 điểm", val: 35000000, milestone: false, title: "Nghiên cứu sinh Triết học" },
+    { level: 13, prize: "42.000.000 điểm", val: 42000000, milestone: false, title: "Giảng viên Triết học" },
+    { level: 14, prize: "50.000.000 điểm", val: 50000000, milestone: false, title: "Giảng viên Triết học" },
+    { level: 15, prize: "60.000.000 điểm", val: 60000000, milestone: true, title: "Tiến sĩ Triết học Duy vật" },
+    { level: 16, prize: "75.000.000 điểm", val: 75000000, milestone: false, title: "Tiến sĩ Ưu tú" },
+    { level: 17, prize: "90.000.000 điểm", val: 90000000, milestone: false, title: "Tiến sĩ Ưu tú" },
+    { level: 18, prize: "110.000.000 điểm", val: 110000000, milestone: false, title: "Chuyên gia Lý luận" },
+    { level: 19, prize: "130.000.000 điểm", val: 130000000, milestone: false, title: "Chuyên gia Lý luận" },
+    { level: 20, prize: "150.000.000 điểm", val: 150000000, milestone: true, title: "Phó Giáo sư Triết học" },
+    { level: 21, prize: "180.000.000 điểm", val: 180000000, milestone: false, title: "Nhà Khảo cứu Biện chứng" },
+    { level: 22, prize: "220.000.000 điểm", val: 220000000, milestone: false, title: "Nhà Khảo cứu Biện chứng" },
+    { level: 23, prize: "270.000.000 điểm", val: 270000000, milestone: false, title: "Nhà Tư tưởng Tiên phong" },
+    { level: 24, prize: "330.000.000 điểm", val: 330000000, milestone: false, title: "Nhà Tư tưởng Tiên phong" },
+    { level: 25, prize: "400.000.000 điểm", val: 400000000, milestone: true, title: "Giáo sư - Viện sĩ Triết học" },
+    { level: 26, prize: "500.000.000 điểm", val: 500000000, milestone: false, title: "Đại học giả Kinh điển" },
+    { level: 27, prize: "620.000.000 điểm", val: 620000000, milestone: false, title: "Đại học giả Kinh điển" },
+    { level: 28, prize: "750.000.000 điểm", val: 750000000, milestone: false, title: "Bậc thầy Duy vật Lịch sử" },
+    { level: 29, prize: "880.000.000 điểm", val: 880000000, milestone: false, title: "Bậc thầy Duy vật Lịch sử" },
+    { level: 30, prize: "1.000.000.000 điểm", val: 1000000000, milestone: true, final: true, title: "ĐẠI TRIẾT GIA MÁC-XÍT NHÂN LOẠI" }
 ];
 
 const GameApp = {
@@ -99,7 +99,7 @@ const GameApp = {
 
         // Walk away button
         document.getElementById('btnWalkAway').addEventListener('click', () => {
-            if (confirm("Bạn có chắc chắn muốn dừng cuộc chơi tại bậc thang này để bảo toàn số tiền thưởng và danh hiệu hiện tại?")) {
+            if (confirm("Bạn có chắc chắn muốn dừng cuộc chơi tại bậc thang này để bảo toàn số điểm thưởng và danh hiệu hiện tại?")) {
                 this.handleWalkAway();
             }
         });
@@ -399,7 +399,7 @@ const GameApp = {
 
         // Calculate final secured prize and title
         let securedVal = 0;
-        let securedPrize = "0 VNĐ";
+        let securedPrize = "0 điểm";
         let securedTitle = "Người tham gia Thử thách";
 
         if (isVoluntaryWalkAway) {
@@ -629,7 +629,7 @@ const GameApp = {
                 <td style="color:#fff; font-weight:700;">${item.playerName || 'Nhà Triết học'}</td>
                 <td><span style="color:#38bdf8; font-weight:700;">Bậc ${item.levelReached || 1}</span></td>
                 <td><span style="color:#fed049;">${item.title || 'Học viên'}</span></td>
-                <td style="color:#00e676; font-weight:800;">${(item.score || 0).toLocaleString('vi-VN')} VNĐ</td>
+                <td style="color:#00e676; font-weight:800;">${(item.score || 0).toLocaleString('vi-VN')} điểm</td>
             `;
             tbody.appendChild(tr);
         });
