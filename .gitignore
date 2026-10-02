@@ -1,8 +1,14 @@
-﻿__pycache__/
-*.pyc
-.DS_Store
-.vercel
-.vercel
-.env*
-
+# Backend - không cần cho static deploy
+game/
 api/
+requirements.txt
+
+# CSS/JS trùng lặp ở root
+css/
+js/
+
+# Misc
+*.pyc
+__pycache__/
+*.bat
+node_modules/
