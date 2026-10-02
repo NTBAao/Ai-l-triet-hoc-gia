@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ai Là Triết Học Gia | Gameshow Triết học Mác - Lênin</title>
     <meta name="description" content="Trò chơi truyền hình trí tuệ 'Ai Là Triết Học Gia' dựa trên Giáo trình Triết học Mác - Lênin (Trang 247-274)">
     <!-- Google Fonts -->
@@ -144,28 +144,30 @@
                         <!-- Walk Away / Surrender button -->
                         <div class="stop-game-wrapper">
                             <button id="btnWalkAway" class="btn-walkaway" title="Dừng cuộc chơi để bảo toàn điểm số">
-                                <i class="fa-solid fa-door-open"></i> <span>Dừng chơi</span>
+                                <i class="fa-solid fa-door-open"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Question Info Bar -->
+                    <!-- Question Info Bar (2 Clean Rows Matching Design) -->
                     <div class="question-meta-bar">
-                        <span class="meta-badge q-num-badge" id="currentQNumBadge">Câu hỏi 1 / 30</span>
-                        <span class="meta-badge q-category-badge" id="currentQCategory">Bản chất con người</span>
-                        <span class="meta-badge q-value-badge" id="currentQValue">500.000 điểm</span>
-                        <button id="btnArenaLadder" class="meta-badge q-ladder-btn mobile-only" title="Bấm để xem bậc thang điểm">
-                            <i class="fa-solid fa-ranking-star gold-icon"></i> <span>Bậc thang</span>
-                        </button>
+                        <div class="meta-row meta-row-top">
+                            <span class="meta-badge q-num-badge" id="currentQNumBadge">Câu hỏi 1 / 30</span>
+                            <span class="meta-badge q-category-badge" id="currentQCategory">Tư tưởng Hồ Chí Minh & Đổi mới</span>
+                        </div>
+                        <div class="meta-row meta-row-bottom">
+                            <span class="meta-badge q-value-badge" id="currentQValue">500.000 điểm</span>
+                            <button id="btnArenaLadder" class="meta-badge q-ladder-btn" title="Bấm để xem bảng bậc thang điểm">
+                                <i class="fa-solid fa-ranking-star gold-icon"></i> <span>Bậc thang</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Main Question Box (Millionaire Hexagonal Diamond Shape) -->
+                    <!-- Main Question Box -->
                     <div class="question-frame">
-                        <div class="diamond-line left-line"></div>
                         <div class="question-box" id="questionTextBox">
                             <p id="questionText">Đang tải câu hỏi triết học...</p>
                         </div>
-                        <div class="diamond-line right-line"></div>
                     </div>
 
                     <!-- 4 Answer Options (A, B, C, D) -->
@@ -208,13 +210,13 @@
 
                 </div>
 
-                <!-- Right Column: 30-Level Rank Ladder -->
+                <!-- Right Column / Modal: 30-Level Rank Ladder -->
                 <aside class="ladder-sidebar glass-panel" id="ladderSidebar">
                     <div class="ladder-header">
                         <div class="ladder-header-title">
                             <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG DANH VỌNG</h3>
-                            <button id="btnCloseLadder" class="btn-close-ladder mobile-only" title="Đóng bậc thang">
-                                <i class="fa-solid fa-xmark"></i>
+                            <button id="btnCloseLadder" class="btn-close-ladder" title="Đóng bậc thang">
+                                &times;
                             </button>
                         </div>
                         <p class="player-tag"><i class="fa-solid fa-user"></i> <span id="sidebarPlayerName">Người chơi</span></p>
@@ -224,7 +226,7 @@
                         <!-- Populated by JavaScript from level 30 down to level 1 -->
                     </div>
 
-                    <div class="ladder-footer mobile-only">
+                    <div class="ladder-footer">
                         <button id="btnBottomCloseLadder" class="btn-modal-ok btn-close-ladder-bottom">
                             <i class="fa-solid fa-check"></i> ĐÃ HIỂU (QUAY LẠI CÂU HỎI)
                         </button>

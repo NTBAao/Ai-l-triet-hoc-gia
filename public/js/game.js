@@ -121,12 +121,19 @@ const GameApp = {
             this.openLeaderboardModal();
         });
 
-        const toggleLadder = (e) => {
+                const toggleLadder = (e) => {
             if (e) e.stopPropagation();
             const sidebar = document.getElementById('ladderSidebar');
             const backdrop = document.getElementById('drawerBackdrop');
             const isOpen = sidebar.classList.toggle('open');
             if (backdrop) backdrop.classList.toggle('active', isOpen);
+            if (isOpen) {
+                // Scroll current level into view
+                const curItem = document.getElementById(`ladderItem${this.currentLevel}`);
+                if (curItem) {
+                    setTimeout(() => curItem.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                }
+            }
             AudioSys.playClick();
         };
 

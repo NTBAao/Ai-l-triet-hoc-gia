@@ -1,6 +1,5 @@
 /* ==========================================================================
    AI LÀ TRIẾT HỌC GIA - PREMIUM GAME SHOW STYLING (WHO WANTS TO BE A MILLIONAIRE)
-   ULTRA-RESPONSIVE & MOBILE-OPTIMIZED FOR ALL SMARTPHONES AND TABLETS
    ========================================================================== */
 
 :root {
@@ -41,7 +40,8 @@ html, body {
     width: 100%;
     min-height: 100vh;
     min-height: 100dvh;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
+    position: relative;
     touch-action: manipulation;
 }
 
@@ -49,7 +49,6 @@ body.game-body {
     font-family: var(--font-heading);
     background-color: var(--bg-dark-deep);
     color: var(--text-pure-white);
-    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -136,7 +135,7 @@ body.game-body {
     align-items: center;
     justify-content: space-between;
     padding: 12px 24px;
-    background: rgba(4, 13, 33, 0.9);
+    background: rgba(4, 13, 33, 0.92);
     border-bottom: 1px solid rgba(245, 179, 1, 0.2);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -146,7 +145,6 @@ body.game-body {
     display: flex;
     align-items: center;
     gap: 14px;
-    min-width: 0;
 }
 
 .game-logo-badge {
@@ -245,6 +243,7 @@ body.game-body {
     width: 100%;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
 
 .game-screen {
@@ -352,12 +351,6 @@ body.game-body {
     transition: all 0.3s ease;
 }
 
-.feature-item:hover {
-    border-color: var(--gold-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
 .feature-icon {
     font-size: 1.4rem;
     color: var(--gold-bright);
@@ -455,77 +448,71 @@ body.game-body {
 .game-arena {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     width: 100%;
 }
 
-/* Arena Top Bar */
+/* Arena Top Bar (Exactly like Image 2) */
 .arena-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 18px;
-    border-color: rgba(245, 179, 1, 0.2);
-    gap: 12px;
+    padding: 10px 16px;
+    border: 1.5px solid rgba(245, 179, 1, 0.25);
+    border-radius: 16px;
+    background: rgba(10, 25, 54, 0.85);
+    width: 100%;
 }
 
 .lifelines-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .btn-lifeline {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #1d4ed8, #0b1f5e);
+    background: radial-gradient(circle at 35% 35%, #2563eb, #1e3a8a);
     border: 2px solid var(--gold-primary);
     color: var(--gold-bright);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 800;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(245, 179, 1, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     flex-shrink: 0;
 }
 
 .btn-lifeline .ll-text {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 900;
 }
 
 .btn-lifeline:hover:not(:disabled) {
-    transform: scale(1.1) translateY(-2px);
-    box-shadow: 0 0 20px var(--gold-glow);
+    transform: scale(1.08);
+    box-shadow: 0 0 16px var(--gold-glow);
     border-color: #fff;
     color: #fff;
 }
 
 .btn-lifeline:disabled {
-    opacity: 0.35;
+    opacity: 0.3;
     cursor: not-allowed;
     filter: grayscale(1);
     position: relative;
     border-color: #475569;
 }
 
-.btn-lifeline:disabled::after {
-    content: "✕";
-    position: absolute;
-    color: var(--accent-red);
-    font-size: 1.6rem;
-    font-weight: 900;
-}
-
 /* Timer */
 .timer-wrapper {
     position: relative;
-    width: 60px;
-    height: 60px;
+    width: 54px;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -575,41 +562,52 @@ body.game-body {
 }
 
 .btn-walkaway {
-    padding: 8px 14px;
-    border-radius: 18px;
-    background: rgba(255, 56, 96, 0.15);
-    border: 1px solid rgba(255, 56, 96, 0.4);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 56, 96, 0.2);
+    border: 1.5px solid rgba(255, 56, 96, 0.5);
     color: #ff6b8b;
-    font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
-    transition: all 0.25s ease;
-    white-space: nowrap;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .btn-walkaway:hover {
-    background: rgba(255, 56, 96, 0.3);
+    background: rgba(255, 56, 96, 0.4);
     color: #fff;
     box-shadow: 0 0 15px rgba(255, 56, 96, 0.4);
 }
 
-/* Question Meta Bar */
+/* Question Meta Bar (Exactly like Image 2: 2 rows with left/right alignment) */
 .question-meta-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.meta-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
 .meta-badge {
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 0.82rem;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
 }
 
 .q-num-badge {
@@ -619,9 +617,12 @@ body.game-body {
 }
 
 .q-category-badge {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
     color: var(--text-silver);
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-align: right;
+    padding: 0;
 }
 
 .q-value-badge {
@@ -631,39 +632,37 @@ body.game-body {
     font-weight: 800;
 }
 
-/* Millionaire Diamond Question Frame */
+.q-ladder-btn {
+    background: rgba(245, 179, 1, 0.18);
+    border: 1.5px solid var(--gold-primary);
+    color: var(--gold-bright);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.q-ladder-btn:hover, .q-ladder-btn:active {
+    background: rgba(245, 179, 1, 0.35);
+    transform: scale(1.02);
+}
+
+/* Question Frame (Gold Border Box with Glow like Image 2) */
 .question-frame {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin: 4px 0;
     width: 100%;
-}
-
-.diamond-line {
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold-primary));
-}
-
-.diamond-line.right-line {
-    background: linear-gradient(90deg, var(--gold-primary), transparent);
+    margin: 2px 0;
 }
 
 .question-box {
-    flex: 18;
     background: linear-gradient(180deg, #0b1c42 0%, #050e24 100%);
     border: 2px solid var(--gold-primary);
-    border-radius: 18px;
-    padding: 20px 24px;
+    border-radius: 16px;
+    padding: 20px 22px;
     text-align: center;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(245, 179, 1, 0.2);
-    position: relative;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(245, 179, 1, 0.15);
+    width: 100%;
     min-height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
 }
 
 .question-box p {
@@ -673,18 +672,17 @@ body.game-body {
     color: var(--text-pure-white);
 }
 
-/* 4 Answers Grid */
+/* 4 Answers Grid (Stacked rows like Image 2) */
 .answers-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 16px;
+    grid-template-columns: 1fr;
+    gap: 10px;
     width: 100%;
 }
 
 .answer-box {
-    position: relative;
     background: linear-gradient(180deg, #0b1e4a 0%, #061129 100%);
-    border: 2px solid rgba(245, 179, 1, 0.4);
+    border: 1.5px solid rgba(0, 150, 255, 0.4);
     border-radius: 14px;
     padding: 14px 18px;
     cursor: pointer;
@@ -700,15 +698,18 @@ body.game-body {
 .answer-box:hover:not(:disabled) {
     background: linear-gradient(180deg, #13337a 0%, #091a42 100%);
     border-color: var(--gold-bright);
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px var(--gold-glow);
+    box-shadow: 0 0 16px var(--gold-glow);
+}
+
+.answer-box:active:not(:disabled) {
+    transform: scale(0.99);
 }
 
 .answer-box .opt-prefix {
     font-size: 1.1rem;
     font-weight: 900;
     color: var(--gold-bright);
-    margin-right: 10px;
+    margin-right: 12px;
     min-width: 24px;
 }
 
@@ -757,7 +758,7 @@ body.game-body {
 }
 
 .explanation-box {
-    background: rgba(13, 32, 71, 0.9);
+    background: rgba(13, 32, 71, 0.95);
     border: 1px solid rgba(0, 210, 255, 0.35);
     border-left: 4px solid var(--accent-blue);
     border-radius: 12px;
@@ -800,12 +801,7 @@ body.game-body {
     width: 100%;
 }
 
-.btn-next-step:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.6);
-}
-
-/* ==================== RIGHT COLUMN: 30-LEVEL LADDER SIDEBAR ==================== */
+/* ==================== DESKTOP LADDER SIDEBAR ==================== */
 .ladder-sidebar {
     padding: 14px;
     max-height: calc(100vh - 110px);
@@ -846,7 +842,7 @@ body.game-body {
     background: transparent;
     border: none;
     color: var(--text-muted);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     cursor: pointer;
     line-height: 1;
 }
@@ -924,6 +920,10 @@ body.game-body {
 
 .ladder-item.passed .level-num {
     color: #00e676;
+}
+
+.ladder-footer {
+    display: none;
 }
 
 /* ==================== SCREEN 3: RESULT SCREEN ==================== */
@@ -1418,8 +1418,7 @@ body.game-body {
 }
 
 /* ==========================================================================
-/* ==========================================================================
-   MOBILE & TABLET RESPONSIVE SYSTEM (FIT ALL SMARTPHONE SCREENS)
+   MOBILE RESPONSIVE SYSTEM (100% MATCHING IMAGE 2 & ZERO OVERFLOW)
    ========================================================================== */
 
 /* Drawer backdrop for mobile */
@@ -1432,41 +1431,13 @@ body.game-body {
     height: 100vh;
     height: 100dvh;
     background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 998;
 }
 
 .drawer-backdrop.active {
     display: block;
-}
-
-/* Arena quick ladder button */
-.q-ladder-btn {
-    background: rgba(245, 179, 1, 0.18);
-    border: 1.5px solid var(--gold-primary);
-    color: var(--gold-bright);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-}
-
-.q-ladder-btn:active {
-    transform: scale(0.95);
-    background: rgba(245, 179, 1, 0.35);
-}
-
-.btn-close-ladder-bottom {
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-    font-size: 0.92rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
 }
 
 @media (max-width: 1024px) {
@@ -1475,37 +1446,44 @@ body.game-body {
         width: 100%;
     }
 
-    /* LADDER SIDEBAR ON MOBILE: FULLY HIDDEN OFF-SCREEN BY DEFAULT */
+    /* ON MOBILE: LADDER IS A CENTERED MODAL OVERLAY (NO HORIZONTAL OVERFLOW EVER) */
     .ladder-sidebar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: min(340px, 88vw);
-        height: 100vh;
-        height: 100dvh;
-        max-height: 100dvh;
-        z-index: 999;
-        border-radius: 20px 0 0 20px;
-        background: #061129;
-        border-left: 2px solid var(--gold-primary);
-        box-shadow: -15px 0 45px rgba(0, 0, 0, 0.95);
-        padding: 16px 14px;
-        display: flex;
-        flex-direction: column;
-        
-        /* HIDDEN OFF-SCREEN */
-        transform: translateX(110%) !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
+        display: none !important;
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: min(360px, 92vw) !important;
+        max-height: 85vh !important;
+        max-height: 85dvh !important;
+        height: auto !important;
+        z-index: 1000 !important;
+        border-radius: 18px !important;
+        background: #061129 !important;
+        border: 2px solid var(--gold-primary) !important;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 30px var(--gold-glow) !important;
+        padding: 16px 14px !important;
+        flex-direction: column !important;
     }
 
     .ladder-sidebar.open {
-        transform: translateX(0) !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
+        display: flex !important;
+        animation: scaleUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    .ladder-footer {
+        display: flex !important;
+        margin-top: 10px;
+    }
+
+    .btn-close-ladder-bottom {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
     }
 
     .mobile-only {
@@ -1537,7 +1515,7 @@ body.game-body {
         font-weight: 700;
     }
     .main-container {
-        padding: 8px 6px;
+        padding: 10px 12px;
     }
     
     /* Welcome screen mobile */
@@ -1584,82 +1562,67 @@ body.game-body {
         font-size: 0.95rem;
     }
 
-    /* Gameplay Screen Mobile */
+    /* Gameplay Screen Mobile (Matches Image 2 Precisely) */
     .game-arena {
-        gap: 8px;
+        gap: 10px;
         width: 100%;
     }
+    
     .arena-topbar {
-        padding: 8px 10px;
-        border-radius: 12px;
+        padding: 10px 14px;
+        border-radius: 16px;
     }
     .lifelines-container {
         gap: 6px;
     }
     .btn-lifeline {
-        width: 38px;
-        height: 38px;
-        font-size: 0.95rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
     }
     .btn-lifeline .ll-text {
         font-size: 0.72rem;
     }
     .timer-wrapper {
-        width: 46px;
-        height: 46px;
+        width: 50px;
+        height: 50px;
     }
     .timer-text {
-        font-size: 1.15rem;
+        font-size: 1.25rem;
     }
     .btn-walkaway {
-        padding: 6px 10px;
-        font-size: 0.75rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 1.1rem;
     }
 
-    /* Question Frame Mobile */
-    .diamond-line {
-        display: none;
-    }
+    /* Question Box */
     .question-box {
-        flex: 1;
-        width: 100%;
-        padding: 14px 16px;
-        border-radius: 14px;
-        min-height: 75px;
+        padding: 16px 18px;
+        border-radius: 16px;
+        min-height: 85px;
     }
     .question-box p {
-        font-size: 1rem;
-        line-height: 1.42;
+        font-size: 1.05rem;
+        line-height: 1.45;
     }
 
-    /* Answers Mobile (1 Column stacked) */
+    /* Answers */
     .answers-grid {
-        grid-template-columns: 1fr;
         gap: 8px;
     }
     .answer-box {
-        padding: 12px 14px;
+        padding: 12px 16px;
         min-height: 48px;
         border-radius: 12px;
     }
     .answer-box .opt-prefix {
-        font-size: 1rem;
-        margin-right: 8px;
+        font-size: 1.05rem;
+        margin-right: 10px;
     }
     .answer-box .opt-text {
         font-size: 0.92rem;
-    }
-
-    /* Meta Bar Mobile */
-    .question-meta-bar {
-        gap: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .meta-badge {
-        padding: 4px 8px;
-        font-size: 0.72rem;
     }
 
     /* Result Screen Mobile */
@@ -1727,12 +1690,9 @@ body.game-body {
     .btn-secondary-nav span {
         display: none;
     }
-    .btn-walkaway span {
-        display: none;
-    }
     .btn-lifeline {
-        width: 34px;
-        height: 34px;
-        font-size: 0.85rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.88rem;
     }
 }
