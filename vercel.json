@@ -1,12 +1,3 @@
-﻿{
-  "version": 2,
-  "public": true,
-  "outputDirectory": "public",
-  "rewrites": [
-    { "source": "/api/questions/random", "destination": "/api/index.py" },
-    { "source": "/api/questions/all", "destination": "/api/index.py" },
-    { "source": "/api/lifeline/(.*)", "destination": "/api/index.py" },
-    { "source": "/api/leaderboard", "destination": "/api/index.py" },
-    { "source": "/api/health", "destination": "/api/index.py" }
-  ]
+{
+  "version": 2
 }
