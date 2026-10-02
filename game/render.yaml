@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ai-la-triet-hoc-gia
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python backend/app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
