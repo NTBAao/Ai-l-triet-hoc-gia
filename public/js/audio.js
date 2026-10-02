@@ -18,7 +18,7 @@ class SoundEngine {
             }
         }
         if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
+            this.ctx.resume().catch(() => {});
         }
     }
 
@@ -34,6 +34,7 @@ class SoundEngine {
         if (!this.enabled) return;
         this.init();
         try {
+            if (!this.ctx) return;
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.type = 'sine';
@@ -51,10 +52,56 @@ class SoundEngine {
         } catch (e) {}
     }
 
+    playStart() {
+        if (!this.enabled) return;
+        this.init();
+        try {
+            if (!this.ctx) return;
+            // Dramatic gong / start chime
+            const notes = [220, 330, 440, 660];
+            notes.forEach((f, idx) => {
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(f, this.ctx.currentTime + idx * 0.08);
+
+                gain.gain.setValueAtTime(0.25, this.ctx.currentTime + idx * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.08 + 0.6);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(this.ctx.currentTime + idx * 0.08);
+                osc.stop(this.ctx.currentTime + idx * 0.08 + 0.6);
+            });
+        } catch (e) {}
+    }
+
+    playTick() {
+        if (!this.enabled) return;
+        this.init();
+        try {
+            if (!this.ctx) return;
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+            gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
+
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+
+            osc.start();
+            osc.stop(this.ctx.currentTime + 0.05);
+        } catch (e) {}
+    }
+
     playSelect() {
         if (!this.enabled) return;
         this.init();
         try {
+            if (!this.ctx) return;
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.type = 'triangle';
@@ -76,6 +123,7 @@ class SoundEngine {
         if (!this.enabled) return;
         this.init();
         try {
+            if (!this.ctx) return;
             // Dramatic tension riser
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
@@ -99,7 +147,7 @@ class SoundEngine {
         if (!this.enabled) return;
         this.init();
         try {
-            // Victorious ascending chord (C major / G major)
+            if (!this.ctx) return;
             const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
             notes.forEach((freq, idx) => {
                 const osc = this.ctx.createOscillator();
@@ -125,7 +173,7 @@ class SoundEngine {
         if (!this.enabled) return;
         this.init();
         try {
-            // Low jarring buzzer
+            if (!this.ctx) return;
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.type = 'sawtooth';
@@ -147,6 +195,7 @@ class SoundEngine {
         if (!this.enabled) return;
         this.init();
         try {
+            if (!this.ctx) return;
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.type = 'sine';
@@ -168,7 +217,7 @@ class SoundEngine {
         if (!this.enabled) return;
         this.init();
         try {
-            // Grand victory fanfare
+            if (!this.ctx) return;
             const fanfare = [
                 { f: 523.25, d: 0.2, t: 0 },
                 { f: 523.25, d: 0.2, t: 0.2 },
@@ -197,11 +246,14 @@ class SoundEngine {
         } catch (e) {}
     }
 
+    playSuspense() {
+        this.startSuspense();
+    }
+
     startSuspense() {
         if (!this.enabled) return;
         this.stopSuspense();
         this.init();
-        // Repeating low pulse heartbeat
         this.heartbeatInterval = setInterval(() => {
             if (!this.enabled || !this.ctx) return;
             try {
@@ -209,7 +261,7 @@ class SoundEngine {
                 const gain = this.ctx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(65, this.ctx.currentTime);
-                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
 
                 osc.connect(gain);
@@ -229,4 +281,18 @@ class SoundEngine {
     }
 }
 
-const AudioSys = new SoundEngine();
+// Proxy wrapper so any non-existent audio call never crashes
+const rawAudio = new SoundEngine();
+const AudioSys = new Proxy(rawAudio, {
+    get(target, prop) {
+        if (prop in target) {
+            const val = target[prop];
+            if (typeof val === 'function') {
+                return val.bind(target);
+            }
+            return val;
+        }
+        // Safe no-op function for unknown methods
+        return () => {};
+    }
+});

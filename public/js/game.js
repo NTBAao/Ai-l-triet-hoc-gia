@@ -191,29 +191,48 @@ const GameApp = {
         }, 150);
     },
 
-    async startNewGame() {
-        this.currentLevel = 1;
-        this.answeredQuestions = [];
-        this.lifelines = { fifty: false, audience: false, phone: false, switch: false };
-        this.activeOptions = [0, 1, 2, 3];
-        this.isAnsweringLocked = false;
+        async startNewGame() {
+        try {
+            this.currentLevel = 1;
+            this.answeredQuestions = [];
+            this.lifelines = { fifty: false, audience: false, phone: false, switch: false };
+            this.activeOptions = [0, 1, 2, 3];
+            this.isAnsweringLocked = false;
 
-        // Reset lifeline UI buttons
-        ['llFifty', 'llAudience', 'llPhone', 'llSwitch'].forEach(id => {
-            const btn = document.getElementById(id);
-            btn.disabled = false;
-        });
+            // Reset lifeline UI buttons
+            ['llFifty', 'llAudience', 'llPhone', 'llSwitch'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = false;
+            });
 
-        // Fetch 30 questions
-        this.questions = await GameAPI.getRandomQuestions();
-        if (!this.questions || this.questions.length === 0) {
-            alert("Không thể tải ngân hàng câu hỏi. Đang sử dụng câu hỏi mặc định.");
-            return;
+            // Fast random pick from bank cache if available
+            if (this.allBankQuestions && this.allBankQuestions.length >= 30) {
+                const easy = this.allBankQuestions.filter(q => q.difficulty === 1);
+                const med  = this.allBankQuestions.filter(q => q.difficulty === 2);
+                const hard = this.allBankQuestions.filter(q => q.difficulty === 3);
+                const pickEasy = [...easy].sort(() => 0.5 - Math.random()).slice(0, 10);
+                const pickMed  = [...med].sort(() => 0.5 - Math.random()).slice(0, 10);
+                const pickHard = [...hard].sort(() => 0.5 - Math.random()).slice(0, 10);
+                this.questions = [...pickEasy, ...pickMed, ...pickHard];
+                if (this.questions.length < 30) {
+                    const rem = this.allBankQuestions.filter(q => !this.questions.some(r => r.id === q.id));
+                    this.questions = this.questions.concat(rem.slice(0, 30 - this.questions.length));
+                }
+            } else {
+                this.questions = await GameAPI.getRandomQuestions();
+            }
+
+            if (!this.questions || this.questions.length === 0) {
+                this.questions = await GameAPI.getRandomQuestions();
+            }
+
+            try { AudioSys.playStart(); } catch(e) {}
+            this.showScreen('screenGame');
+            this.loadQuestionForCurrentLevel();
+        } catch(err) {
+            console.error('Error starting new game:', err);
+            this.showScreen('screenGame');
         }
-
-        AudioSys.playStart();
-        this.showScreen('screenGame');
-        this.loadQuestionForCurrentLevel();
     },
 
     loadQuestionForCurrentLevel() {
