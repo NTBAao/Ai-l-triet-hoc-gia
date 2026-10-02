@@ -45,8 +45,8 @@
             <button id="btnLeaderboard" class="btn-secondary-nav" title="Bảng vàng Triết gia">
                 <i class="fa-solid fa-trophy"></i> <span>Bảng Vàng</span>
             </button>
-            <button id="btnToggleLadder" class="btn-secondary-nav mobile-only" title="Mở bậc thang điểm">
-                <i class="fa-solid fa-list-ol"></i>
+            <button id="btnToggleLadder" class="btn-secondary-nav btn-ladder-nav mobile-only" title="Bật/Tắt Bậc thang điểm">
+                <i class="fa-solid fa-ranking-star gold-icon"></i> <span>Bậc thang</span>
             </button>
         </div>
     </header>
@@ -74,18 +74,24 @@
                 <div class="welcome-features-grid">
                     <div class="feature-item">
                         <i class="fa-solid fa-shuffle feature-icon"></i>
-                        <h4>Ngẫu nhiên 30 câu</h4>
-                        <p>Tuyển chọn từ ngân hàng 150 câu hỏi chất lượng cao</p>
+                        <div>
+                            <h4>Ngẫu nhiên 30 câu</h4>
+                            <p>Tuyển chọn từ ngân hàng 150 câu hỏi chất lượng cao</p>
+                        </div>
                     </div>
                     <div class="feature-item">
                         <i class="fa-solid fa-hand-holding-hand feature-icon"></i>
-                        <h4>4 Quyền trợ giúp</h4>
-                        <p>50:50, Hỏi hội đồng, Gọi điện cho C.Mác/Lênin, Đổi câu</p>
+                        <div>
+                            <h4>4 Quyền trợ giúp</h4>
+                            <p>50:50, Hỏi hội đồng, Gọi điện cho C.Mác/Lênin, Đổi câu</p>
+                        </div>
                     </div>
                     <div class="feature-item">
                         <i class="fa-solid fa-medal feature-icon"></i>
-                        <h4>30 Bậc danh vọng</h4>
-                        <p>Mốc an toàn tại câu 5, 10, 15, 20, 25 & Đỉnh cao câu 30</p>
+                        <div>
+                            <h4>30 Bậc danh vọng</h4>
+                            <p>Mốc an toàn tại câu 5, 10, 15, 20, 25 & Đỉnh cao câu 30</p>
+                        </div>
                     </div>
                 </div>
 
@@ -138,7 +144,7 @@
                         <!-- Walk Away / Surrender button -->
                         <div class="stop-game-wrapper">
                             <button id="btnWalkAway" class="btn-walkaway" title="Dừng cuộc chơi để bảo toàn điểm số">
-                                <i class="fa-solid fa-door-open"></i> <span>Dừng cuộc chơi</span>
+                                <i class="fa-solid fa-door-open"></i> <span>Dừng chơi</span>
                             </button>
                         </div>
                     </div>
@@ -148,6 +154,9 @@
                         <span class="meta-badge q-num-badge" id="currentQNumBadge">Câu hỏi 1 / 30</span>
                         <span class="meta-badge q-category-badge" id="currentQCategory">Bản chất con người</span>
                         <span class="meta-badge q-value-badge" id="currentQValue">500.000 điểm</span>
+                        <button id="btnArenaLadder" class="meta-badge q-ladder-btn mobile-only" title="Bấm để xem bậc thang điểm">
+                            <i class="fa-solid fa-ranking-star gold-icon"></i> <span>Bậc thang</span>
+                        </button>
                     </div>
 
                     <!-- Main Question Box (Millionaire Hexagonal Diamond Shape) -->
@@ -163,42 +172,26 @@
                     <div class="answers-grid" id="answersGrid">
                         <!-- Option A -->
                         <button class="answer-box" data-index="0" id="optBtn0">
-                            <div class="answer-bracket left-bracket"></div>
-                            <div class="answer-content">
-                                <span class="opt-prefix">A:</span>
-                                <span class="opt-text" id="optText0">Phương án A</span>
-                            </div>
-                            <div class="answer-bracket right-bracket"></div>
+                            <span class="opt-prefix">A:</span>
+                            <span class="opt-text" id="optText0">Phương án A</span>
                         </button>
 
                         <!-- Option B -->
                         <button class="answer-box" data-index="1" id="optBtn1">
-                            <div class="answer-bracket left-bracket"></div>
-                            <div class="answer-content">
-                                <span class="opt-prefix">B:</span>
-                                <span class="opt-text" id="optText1">Phương án B</span>
-                            </div>
-                            <div class="answer-bracket right-bracket"></div>
+                            <span class="opt-prefix">B:</span>
+                            <span class="opt-text" id="optText1">Phương án B</span>
                         </button>
 
                         <!-- Option C -->
                         <button class="answer-box" data-index="2" id="optBtn2">
-                            <div class="answer-bracket left-bracket"></div>
-                            <div class="answer-content">
-                                <span class="opt-prefix">C:</span>
-                                <span class="opt-text" id="optText2">Phương án C</span>
-                            </div>
-                            <div class="answer-bracket right-bracket"></div>
+                            <span class="opt-prefix">C:</span>
+                            <span class="opt-text" id="optText2">Phương án C</span>
                         </button>
 
                         <!-- Option D -->
                         <button class="answer-box" data-index="3" id="optBtn3">
-                            <div class="answer-bracket left-bracket"></div>
-                            <div class="answer-content">
-                                <span class="opt-prefix">D:</span>
-                                <span class="opt-text" id="optText3">Phương án D</span>
-                            </div>
-                            <div class="answer-bracket right-bracket"></div>
+                            <span class="opt-prefix">D:</span>
+                            <span class="opt-text" id="optText3">Phương án D</span>
                         </button>
                     </div>
 
@@ -215,18 +208,26 @@
 
                 </div>
 
-                <!-- Right Column: 30-Level Money / Rank Ladder -->
+                <!-- Right Column: 30-Level Rank Ladder -->
                 <aside class="ladder-sidebar glass-panel" id="ladderSidebar">
                     <div class="ladder-header">
                         <div class="ladder-header-title">
-                            <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG</h3>
-                            <button id="btnCloseLadder" class="btn-close-ladder mobile-only" title="Đóng">&times;</button>
+                            <h3><i class="fa-solid fa-ranking-star gold-icon"></i> BẬC THANG DANH VỌNG</h3>
+                            <button id="btnCloseLadder" class="btn-close-ladder mobile-only" title="Đóng bậc thang">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                         <p class="player-tag"><i class="fa-solid fa-user"></i> <span id="sidebarPlayerName">Người chơi</span></p>
                     </div>
                     
                     <div class="ladder-list" id="ladderList">
                         <!-- Populated by JavaScript from level 30 down to level 1 -->
+                    </div>
+
+                    <div class="ladder-footer mobile-only">
+                        <button id="btnBottomCloseLadder" class="btn-modal-ok btn-close-ladder-bottom">
+                            <i class="fa-solid fa-check"></i> ĐÃ HIỂU (QUAY LẠI CÂU HỎI)
+                        </button>
                     </div>
                 </aside>
 
@@ -282,10 +283,10 @@
         </section>
 
         <!-- Backdrop for mobile ladder drawer -->
-    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+        <div class="drawer-backdrop" id="drawerBackdrop"></div>
     </main>
 
-    <!-- ==================== MODAL: AUDIENCE POLL (HỎI HỘI ĐỒNG TRIẾT GIA) ==================== -->
+    <!-- ==================== MODAL: AUDIENCE POLL ==================== -->
     <div class="game-modal" id="modalAudience">
         <div class="modal-card glass-panel">
             <div class="modal-header">
@@ -332,7 +333,7 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: PHONE A PHILOSOPHER (GỌI ĐIỆN THOẠI) ==================== -->
+    <!-- ==================== MODAL: PHONE A PHILOSOPHER ==================== -->
     <div class="game-modal" id="modalPhone">
         <div class="modal-card glass-panel">
             <div class="modal-header">
@@ -361,11 +362,11 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: STUDY MODE / BROWSE 150 QUESTIONS ==================== -->
+    <!-- ==================== MODAL: STUDY MODE ==================== -->
     <div class="game-modal" id="modalStudy">
         <div class="modal-card modal-large glass-panel">
             <div class="modal-header">
-                <h3><i class="fa-solid fa-database gold-icon"></i> NGÂN HÀNG 150 CÂU HỎI TRIẾT HỌC MÁC - LÊNIN (TR. 247-274)</h3>
+                <h3><i class="fa-solid fa-database gold-icon"></i> NGÂN HÀNG 150 CÂU HỎI (TR. 247-274)</h3>
                 <button class="modal-close" onclick="GameApp.closeModal('modalStudy')">&times;</button>
             </div>
             <div class="modal-body">
@@ -373,7 +374,7 @@
                 <div class="study-filter-bar">
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="studySearchInput" placeholder="Tìm kiếm từ khóa (ví dụ: tha hóa, Phoiơbắc, Hồ Chí Minh, bản chất...)">
+                        <input type="text" id="studySearchInput" placeholder="Tìm kiếm từ khóa (ví dụ: tha hóa, Phoiơbắc, Hồ Chí Minh...)">
                     </div>
                     <div class="select-filter">
                         <select id="studyCategorySelect">

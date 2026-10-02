@@ -121,24 +121,33 @@ const GameApp = {
             this.openLeaderboardModal();
         });
 
-        const toggleLadder = () => {
+        const toggleLadder = (e) => {
+            if (e) e.stopPropagation();
             const sidebar = document.getElementById('ladderSidebar');
             const backdrop = document.getElementById('drawerBackdrop');
-            sidebar.classList.toggle('open');
-            if (backdrop) backdrop.classList.toggle('active', sidebar.classList.contains('open'));
+            const isOpen = sidebar.classList.toggle('open');
+            if (backdrop) backdrop.classList.toggle('active', isOpen);
+            AudioSys.playClick();
         };
-        const closeLadder = () => {
+
+        const closeLadder = (e) => {
+            if (e) e.stopPropagation();
             const sidebar = document.getElementById('ladderSidebar');
             const backdrop = document.getElementById('drawerBackdrop');
             sidebar.classList.remove('open');
             if (backdrop) backdrop.classList.remove('active');
+            AudioSys.playClick();
         };
 
-        const btnToggle = document.getElementById('btnToggleLadder');
-        if (btnToggle) btnToggle.addEventListener('click', toggleLadder);
+        ['btnToggleLadder', 'btnArenaLadder'].forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) btn.addEventListener('click', toggleLadder);
+        });
 
-        const btnClose = document.getElementById('btnCloseLadder');
-        if (btnClose) btnClose.addEventListener('click', closeLadder);
+        ['btnCloseLadder', 'btnBottomCloseLadder'].forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) btn.addEventListener('click', closeLadder);
+        });
 
         const backdrop = document.getElementById('drawerBackdrop');
         if (backdrop) backdrop.addEventListener('click', closeLadder);

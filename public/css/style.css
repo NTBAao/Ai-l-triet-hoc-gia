@@ -1418,6 +1418,7 @@ body.game-body {
 }
 
 /* ==========================================================================
+/* ==========================================================================
    MOBILE & TABLET RESPONSIVE SYSTEM (FIT ALL SMARTPHONE SCREENS)
    ========================================================================== */
 
@@ -1430,40 +1431,85 @@ body.game-body {
     width: 100vw;
     height: 100vh;
     height: 100dvh;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    z-index: 99;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 998;
 }
 
 .drawer-backdrop.active {
     display: block;
 }
 
+/* Arena quick ladder button */
+.q-ladder-btn {
+    background: rgba(245, 179, 1, 0.18);
+    border: 1.5px solid var(--gold-primary);
+    color: var(--gold-bright);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.q-ladder-btn:active {
+    transform: scale(0.95);
+    background: rgba(245, 179, 1, 0.35);
+}
+
+.btn-close-ladder-bottom {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
 @media (max-width: 1024px) {
     .gameplay-layout {
         grid-template-columns: 1fr;
+        width: 100%;
     }
+
+    /* LADDER SIDEBAR ON MOBILE: FULLY HIDDEN OFF-SCREEN BY DEFAULT */
     .ladder-sidebar {
         position: fixed;
-        right: -360px;
         top: 0;
-        width: min(320px, 85vw);
+        right: 0;
+        width: min(340px, 88vw);
         height: 100vh;
         height: 100dvh;
         max-height: 100dvh;
-        z-index: 100;
-        border-radius: 16px 0 0 16px;
-        transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        background: rgba(6, 17, 41, 0.96);
-        box-shadow: -10px 0 35px rgba(0, 0, 0, 0.8);
-        padding: 16px;
-    }
-    .ladder-sidebar.open {
-        right: 0;
-    }
-    .mobile-only {
+        z-index: 999;
+        border-radius: 20px 0 0 20px;
+        background: #061129;
+        border-left: 2px solid var(--gold-primary);
+        box-shadow: -15px 0 45px rgba(0, 0, 0, 0.95);
+        padding: 16px 14px;
         display: flex;
+        flex-direction: column;
+        
+        /* HIDDEN OFF-SCREEN */
+        transform: translateX(110%) !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
+    }
+
+    .ladder-sidebar.open {
+        transform: translateX(0) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
     }
 }
 
@@ -1484,17 +1530,23 @@ body.game-body {
         padding: 6px 10px;
         font-size: 0.78rem;
     }
+    .btn-ladder-nav {
+        background: rgba(245, 179, 1, 0.2);
+        border-color: var(--gold-primary);
+        color: var(--gold-bright);
+        font-weight: 700;
+    }
     .main-container {
-        padding: 10px 8px;
+        padding: 8px 6px;
     }
     
     /* Welcome screen mobile */
     .welcome-card {
-        padding: 24px 14px;
+        padding: 22px 14px;
         border-radius: 14px;
     }
     .game-title {
-        font-size: 1.65rem;
+        font-size: 1.6rem;
         letter-spacing: 1px;
     }
     .game-subtitle {
@@ -1503,12 +1555,12 @@ body.game-body {
     .source-citation {
         font-size: 0.75rem;
         padding: 4px 10px;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
     .welcome-features-grid {
         grid-template-columns: 1fr;
         gap: 8px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
     }
     .feature-item {
         padding: 10px 12px;
@@ -1518,7 +1570,7 @@ body.game-body {
     }
     .feature-icon {
         margin-bottom: 0;
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
     .player-input-box {
         padding: 14px 12px;
@@ -1534,7 +1586,8 @@ body.game-body {
 
     /* Gameplay Screen Mobile */
     .game-arena {
-        gap: 10px;
+        gap: 8px;
+        width: 100%;
     }
     .arena-topbar {
         padding: 8px 10px;
@@ -1552,8 +1605,8 @@ body.game-body {
         font-size: 0.72rem;
     }
     .timer-wrapper {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
     }
     .timer-text {
         font-size: 1.15rem;
@@ -1576,7 +1629,7 @@ body.game-body {
     }
     .question-box p {
         font-size: 1rem;
-        line-height: 1.4;
+        line-height: 1.42;
     }
 
     /* Answers Mobile (1 Column stacked) */
@@ -1599,7 +1652,10 @@ body.game-body {
 
     /* Meta Bar Mobile */
     .question-meta-bar {
-        gap: 4px;
+        gap: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     .meta-badge {
         padding: 4px 8px;
@@ -1663,7 +1719,7 @@ body.game-body {
     }
 }
 
-/* Extra Small Phones (iPhone SE, Galaxy A series < 380px) */
+/* Extra Small Phones (< 380px) */
 @media (max-width: 380px) {
     .game-logo-badge span {
         font-size: 0.85rem;
