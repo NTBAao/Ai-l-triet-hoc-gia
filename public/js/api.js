@@ -8,12 +8,13 @@
 // FIREBASE CONFIG - Bảng vàng thực sự cho tất cả người chơi
 // =====================================================================
 const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyDemo-ReplaceWithYourKey",
-    authDomain: "ai-la-triet-hoc-gia.firebaseapp.com",
-    projectId: "ai-la-triet-hoc-gia",
-    storageBucket: "ai-la-triet-hoc-gia.appspot.com",
-    messagingSenderId: "000000000000",
-    appId: "1:000000000000:web:0000000000000000"
+  apiKey: "AIzaSyC8MWzIAdNNC7MHE8EobS1-S2NIUWuETVc",
+  authDomain: "ailatriethocgia.firebaseapp.com",
+  projectId: "ailatriethocgia",
+  storageBucket: "ailatriethocgia.firebasestorage.app",
+  messagingSenderId: "276648580937",
+  appId: "1:276648580937:web:d2cb5ebfd5661537e72c98",
+  measurementId: "G-J65HEEXPC8"
 };
 
 // Firebase được load động từ CDN
@@ -159,7 +160,7 @@ const GameAPI = {
                     ...scoreEntry,
                     timestamp: serverTimestamp()
                 });
-                console.log('🏆 Score saved to Firebase global leaderboard!');
+                console.log('✨ Score saved to Firebase global leaderboard!');
             } catch (err) {
                 console.warn('Firebase write error (score saved locally):', err.message);
             }
