@@ -65,6 +65,30 @@ const GameApp = {
         this.renderLadder();
         this.bindEvents();
         this.loadBankQuestions();
+        this.createTrollModal();
+    },
+
+    createTrollModal() {
+        if (document.getElementById('modalTroll')) return;
+        const modal = document.createElement('div');
+        modal.className = 'game-modal';
+        modal.id = 'modalTroll';
+        modal.innerHTML = `
+            <div class="modal-card glass-panel">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> <span id="trollModalTitle">CẢNH BÁO</span></h3>
+                    <button class="modal-close" onclick="GameApp.closeModal('modalTroll')">&times;</button>
+                </div>
+                <div class="modal-body" style="text-align: center; padding: 30px 20px;">
+                    <p id="trollModalMessage" style="font-size: 1.2rem; margin-bottom: 15px; color: #fff;"></p>
+                    <div id="trollModalExtra" style="font-size: 2rem; font-weight: bold; color: #fed049; text-shadow: 0 0 10px rgba(254, 208, 73, 0.5);"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-modal-ok" onclick="GameApp.closeModal('modalTroll')">ĐÃ HIỂU</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
     },
 
     bindEvents() {
@@ -115,15 +139,26 @@ const GameApp = {
             AudioSys.playClick();
             if (document.getElementById('screenGame').classList.contains('active')) {
                 this.trollClickCount = (this.trollClickCount || 0) + 1;
+                
+                const titleEl = document.getElementById('trollModalTitle');
+                const msgEl = document.getElementById('trollModalMessage');
+                const extraEl = document.getElementById('trollModalExtra');
+                extraEl.innerText = "";
+                
                 if (this.trollClickCount === 1) {
-                    alert("Bạn mong chờ gì ở đây, bạn đang tính gian lận phải không");
+                    titleEl.innerText = "CẢNH BÁO GIAN LẬN";
+                    msgEl.innerText = "Bạn mong chờ gì ở đây, bạn đang tính gian lận phải không? 🤨";
                 } else if (this.trollClickCount === 2) {
-                    alert("Bạn không nên gian lận");
+                    titleEl.innerText = "CẢNH BÁO LẦN 2";
+                    msgEl.innerText = "Bạn không nên gian lận! ⚠️";
                 } else {
+                    titleEl.innerText = "THỎA MÃN SỰ TÒ MÒ";
+                    msgEl.innerText = "Thôi được rồi, đáp án cho câu này là:";
                     const ansStr = ["A", "B", "C", "D"][this.currentQuestion.correct];
-                    alert(`Đáp án cho câu này là: ${ansStr}`);
+                    extraEl.innerText = ansStr;
                     this.isTrollCheater = true;
                 }
+                this.openModal('modalTroll');
             } else {
                 this.openStudyModal();
             }
@@ -211,6 +246,8 @@ const GameApp = {
             this.lifelines = { fifty: false, audience: false, phone: false, switch: false };
             this.activeOptions = [0, 1, 2, 3];
             this.isAnsweringLocked = false;
+            this.trollClickCount = 0;
+            this.isTrollCheater = false;
 
             // Reset lifeline UI buttons
             ['llFifty', 'llAudience', 'llPhone', 'llSwitch'].forEach(id => {
@@ -353,6 +390,17 @@ const GameApp = {
         this.isAnsweringLocked = true;
         this.stopTimer();
         AudioSys.stopSuspense();
+        
+        if (this.isTrollCheater) {
+            document.getElementById('trollModalTitle').innerText = "PHÁT HIỆN GIAN LẬN";
+            document.getElementById('trollModalMessage').innerText = "Tôi đã cảnh cáo 2 lần nhưng bạn vẫn tiếp tục, nên bạn đã bị xử thua! 🤡";
+            document.getElementById('trollModalExtra').innerText = "";
+            this.openModal('modalTroll');
+            
+            AudioSys.playWrong();
+            this.handleGameOver(false);
+            return;
+        }
 
         const selectedBtn = document.getElementById(`optBtn${selectedIndex}`);
         selectedBtn.classList.add('selected');
