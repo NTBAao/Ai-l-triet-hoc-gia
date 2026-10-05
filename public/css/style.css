@@ -1760,3 +1760,164 @@ body.game-body {
     .btn-icon { width: 34px; height: 34px; font-size: 0.9rem; }
 }
 
+
+/* ============================================================
+   MOBILE FULL-SCREEN FIT - Icon Only Buttons
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* --- Prevent any scroll --- */
+    html, body.game-body {
+        overflow: hidden !important;
+        height: 100dvh !important;
+        width: 100vw !important;
+    }
+
+    /* --- Header compact --- */
+    .game-header {
+        padding: 4px 10px !important;
+        min-height: 44px !important;
+    }
+    .game-logo-badge span { font-size: 0.82rem !important; letter-spacing: 0px !important; }
+    .topic-tag { display: none !important; }
+
+    /* --- Hide ALL text inside header buttons, keep only icons --- */
+    .btn-secondary-nav span,
+    .btn-walkaway span,
+    .btn-secondary-nav .ll-text { display: none !important; }
+
+    .btn-secondary-nav {
+        padding: 0 !important;
+        width: 34px !important;
+        height: 34px !important;
+        border-radius: 50% !important;
+        justify-content: center !important;
+        font-size: 0.95rem !important;
+        flex-shrink: 0 !important;
+    }
+    .btn-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.88rem !important;
+    }
+    .header-right { gap: 6px !important; }
+
+    /* --- Main container fills remaining height --- */
+    .main-container {
+        padding: 6px 8px !important;
+        flex: 1 !important;
+        height: calc(100dvh - 44px) !important;
+        overflow: hidden !important;
+    }
+
+    /* --- Game screen fills container --- */
+    #screenGame.active {
+        height: 100% !important;
+        overflow: hidden !important;
+    }
+    .gameplay-layout {
+        height: 100% !important;
+        grid-template-columns: 1fr !important;
+    }
+    .game-arena {
+        height: 100% !important;
+        gap: 5px !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* --- Arena top bar (lifelines + timer + stop) --- */
+    .arena-topbar {
+        padding: 5px 8px !important;
+        border-radius: 12px !important;
+        flex-shrink: 0 !important;
+        gap: 4px !important;
+    }
+    .lifelines-container { gap: 5px !important; }
+    .btn-lifeline {
+        width: 36px !important; height: 36px !important;
+        font-size: 0.85rem !important;
+    }
+    .btn-lifeline .ll-text { font-size: 0.6rem !important; }
+    .timer-wrapper { width: 42px !important; height: 42px !important; }
+    .timer-text { font-size: 1.05rem !important; }
+
+    /* Walk away: icon only */
+    .btn-walkaway {
+        width: 36px !important; height: 36px !important;
+        padding: 0 !important;
+        border-radius: 10px !important;
+        font-size: 0.95rem !important;
+        flex-shrink: 0 !important;
+    }
+    .btn-walkaway span { display: none !important; }
+
+    /* --- Meta bar (question number, category, prize) --- */
+    .question-meta-bar {
+        flex-shrink: 0 !important;
+        gap: 4px !important;
+    }
+    .meta-badge {
+        padding: 3px 7px !important;
+        font-size: 0.7rem !important;
+        border-radius: 7px !important;
+    }
+    .q-category-badge { display: none !important; }
+
+    /* --- Question frame --- */
+    .question-frame {
+        flex-shrink: 0 !important;
+        margin: 0 !important;
+    }
+    .diamond-line { display: none !important; }
+    .question-box {
+        padding: 10px 12px !important;
+        min-height: unset !important;
+        border-radius: 12px !important;
+    }
+    .question-box p {
+        font-size: 0.88rem !important;
+        line-height: 1.3 !important;
+    }
+
+    /* --- Answers grid --- */
+    .answers-grid {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 5px !important;
+        overflow: hidden !important;
+    }
+    .answer-box {
+        flex: 1 !important;
+        padding: 0 10px !important;
+        min-height: unset !important;
+        border-radius: 10px !important;
+    }
+    .answer-box .opt-prefix {
+        font-size: 0.85rem !important;
+        margin-right: 6px !important;
+        min-width: 18px !important;
+    }
+    .answer-box .opt-text {
+        font-size: 0.82rem !important;
+        line-height: 1.2 !important;
+    }
+    .answer-bracket { display: none !important; }
+
+    /* --- Post answer panel (explanation) --- */
+    .post-answer-panel {
+        flex-shrink: 0 !important;
+        gap: 5px !important;
+    }
+    .explanation-box { padding: 8px 10px !important; }
+    .explanation-box h4 { font-size: 0.78rem !important; margin-bottom: 3px !important; }
+    .explanation-box p { font-size: 0.78rem !important; line-height: 1.3 !important; }
+    .btn-next-step {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        border-radius: 8px !important;
+    }
+    .btn-next-step span { font-size: 0.78rem !important; }
+}
