@@ -113,7 +113,20 @@ const GameApp = {
         // Navigation Modals
         document.getElementById('btnStudyMode').addEventListener('click', () => {
             AudioSys.playClick();
-            this.openStudyModal();
+            if (document.getElementById('screenGame').classList.contains('active')) {
+                this.trollClickCount = (this.trollClickCount || 0) + 1;
+                if (this.trollClickCount === 1) {
+                    alert("Bạn mong chờ gì ở đây, bạn đang tính gian lận phải không");
+                } else if (this.trollClickCount === 2) {
+                    alert("Bạn không nên gian lận");
+                } else {
+                    const ansStr = ["A", "B", "C", "D"][this.currentQuestion.correct];
+                    alert(`Đáp án cho câu này là: ${ansStr}`);
+                    this.isTrollCheater = true;
+                }
+            } else {
+                this.openStudyModal();
+            }
         });
 
         document.getElementById('btnLeaderboard').addEventListener('click', () => {
@@ -706,6 +719,15 @@ const GameApp = {
         document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
         const target = document.getElementById(screenId);
         if (target) target.classList.add('active');
+
+        const btnStudy = document.getElementById('btnStudyMode');
+        if (btnStudy) {
+            if (screenId === 'screenGame') {
+                btnStudy.style.display = 'inline-flex';
+            } else {
+                btnStudy.style.display = 'none';
+            }
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
