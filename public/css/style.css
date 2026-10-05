@@ -1694,3 +1694,28 @@ body.game-body {
         font-size: 0.88rem;
     }
 }
+/* Custom Mobile Overrides for perfect fit */
+@media (max-width: 768px) {
+    html, body.game-body { max-width: 100vw; overflow-x: hidden; }
+    .main-container { padding: 8px; min-height: calc(100vh - 55px); }
+    .game-arena { gap: 8px; }
+    .question-box { padding: 12px 14px; min-height: 60px; margin: 4px 0; }
+    .question-box p { font-size: 1rem; line-height: 1.3; }
+    .answers-grid { gap: 8px; }
+    .answer-box { padding: 10px 12px; min-height: 50px; }
+    .answer-box .opt-prefix { font-size: 1rem; margin-right: 8px; }
+    .answer-box .opt-text { font-size: 0.9rem; }
+    .arena-topbar { padding: 6px 12px; margin-bottom: -4px; }
+    .btn-lifeline { width: 42px; height: 42px; font-size: 1rem; }
+    .timer-wrapper { width: 52px; height: 52px; }
+    .timer-text { font-size: 1.1rem; }
+    .btn-walkaway { padding: 8px 12px; font-size: 0.8rem; }
+    .question-meta-bar { font-size: 0.75rem; flex-wrap: wrap; }
+    .meta-badge { padding: 4px 8px; }
+    .game-header { padding: 6px 12px; }
+    .ladder-sidebar { height: calc(100vh - 55px); top: 55px; }
+    
+    /* Make buttons smaller on small phones */
+    .btn-secondary-nav { padding: 6px 12px; font-size: 0.8rem; }
+    .btn-icon { width: 36px; height: 36px; font-size: 0.95rem; }
+}
