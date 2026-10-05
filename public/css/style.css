@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    AI LÀ TRIẾT HỌC GIA - PREMIUM GAME SHOW STYLING (WHO WANTS TO BE A MILLIONAIRE)
    ========================================================================== */
 
@@ -1802,12 +1802,16 @@ body.game-body {
     }
     .header-right { gap: 6px !important; }
 
-    /* --- Main container fills remaining height --- */
+    /* Welcome screen: allow scroll; Game screen: fix height */
     .main-container {
         padding: 6px 8px !important;
         flex: 1 !important;
+    }
+    /* Only fix height when GAME screen is active (body has in-game class) */
+    body.in-game .main-container {
         height: calc(100dvh - 44px) !important;
-        overflow: hidden !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
     }
 
     /* --- Game screen fills container --- */
